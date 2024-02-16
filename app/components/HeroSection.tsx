@@ -61,11 +61,14 @@ const HeroSection = () => {
               repeat={Infinity}
             />
           </h1>
-          <p className="text-white text-base sm:text-lg lg:text-xl mb-6">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore,
-            accusantium ea! Sequi velit alias cupiditate impedit consequuntur
-            placeat? Beatae aperiam odit accusantium vel earum mollitia eveniet
-            explicabo animi voluptatibus ipsum?
+          <p className="text-white text-base sm:text-md lg:text-lg mb-6">
+            Enthusiastic, highly motivated, adaptive, and eager to learn and
+            grow professionally, Gibran is familiar with various aspects of
+            software engineering, web development, database management, project
+            management, and other related IT fields because of his Information
+            and System Technology background. Gibran also has good
+            problem-solving and collaborative skills proven by his experience of
+            participating in various competitions and activities.
           </p>
           <div>
             <button className="px-6 py-3 w-full sm:w-fit rounded-full mr-4 bg-white hover:bg-slate-200 text-black">
