@@ -12,7 +12,7 @@ const navLinks = [
     title: "About Me",
   },
   {
-    href: "#techstacks",
+    href: "#tech_stacks",
     title: "Tech Stacks",
   },
   {
