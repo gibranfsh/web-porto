@@ -1,5 +1,7 @@
 import HeroSection from "./components/HeroSection";
-import TechStack from "./components/TechStack";
+import TechStackSection from "./components/TechStackSection";
+import ProjectSection from "./components/ProjectSection";
+import ExperienceSection from "./components/ExperienceSection";
 import { FaArrowDownLong } from "react-icons/fa6";
 
 const Home = () => {
@@ -8,7 +10,9 @@ const Home = () => {
       <div className="container mt-24 mx-auto px-4 py-4">
         <HeroSection />
         <FaArrowDownLong className="text-white text-4xl mx-auto my-32 animate-bounce w-6 h-6" />
-        <TechStack />
+        <TechStackSection />
+        <ProjectSection />
+        <ExperienceSection />
       </div>
     </main>
   );

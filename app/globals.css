@@ -25,3 +25,19 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.image-container {
+  overflow: hidden;
+}
+
+.image-container:hover img {
+  animation: scrollAnimation 5s linear forwards; /* Adjust the duration as needed */
+}
+
+@keyframes scrollAnimation {
+  to {
+    transform: translateY(
+      calc(-100% + 301px)
+    ); /* Adjust the value based on the image height */
+  }
+}

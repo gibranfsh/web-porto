@@ -27,11 +27,10 @@ const navLinks = [
     href: "#awards",
     title: "Awards",
   },
-
-  {
-    href: "/menfess",
-    title: "Menfess",
-  },
+  // {
+  //   href: "/menfess",
+  //   title: "Menfess",
+  // },
 ];
 
 const NavBar = () => {
