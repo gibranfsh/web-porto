@@ -161,7 +161,7 @@ const ProjectSection = () => {
       <h2 className="text-white text-3xl font-extrabold text-center mb-8">
         My Projects
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {projects.map((project, index) => (
           <ProjectCard key={index} project={project} index={index} />
         ))}
@@ -209,16 +209,15 @@ const ProjectCard = ({
       className="bg-gray-900 rounded-lg shadow-md overflow-hidden"
       data-aos="fade-up"
       data-aos-duration="1000"
-      data-aos-delay={(index + 1) * 200}
+      data-aos-delay={(index + 1) * 100}
     >
-      <div className="w-[350px] h-[225px] overflow-hidden group relative">
-        <div className="image-container rounded-lg">
+      <div className="w-[350px] h-[225px] overflow-hidden">
+        <div className="image-container rounded-lg relative overflow-hidden w-full h-full">
           <Image
             src={project.imageUrl}
             alt={project.name}
-            className="object-cover"
-            width={350}
-            height={225}
+            fill={true}
+            className="w-full h-full object-cover object-top hover:object-bottom transition-all duration-1000"
           />
         </div>
       </div>

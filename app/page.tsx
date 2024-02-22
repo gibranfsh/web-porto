@@ -2,6 +2,8 @@ import HeroSection from "./components/HeroSection";
 import TechStackSection from "./components/TechStackSection";
 import ProjectSection from "./components/ProjectSection";
 import ExperienceSection from "./components/ExperienceSection";
+import AwardsSection from "./components/AwardSection";
+import HitMeUpSection from "./components/HitMeUpSection";
 import { FaArrowDownLong } from "react-icons/fa6";
 
 const Home = () => {
@@ -13,6 +15,8 @@ const Home = () => {
         <TechStackSection />
         <ProjectSection />
         <ExperienceSection />
+        <AwardsSection />
+        <HitMeUpSection />
       </div>
     </main>
   );

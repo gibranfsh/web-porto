@@ -23,7 +23,7 @@ const TechStackSection = () => {
         Tech Stacks & Tools
       </h2>
       <div
-        className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4"
+        className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4 justify-items-center"
         data-aos="fade-up"
         data-aos-duration="1000"
         data-aos-delay="200"
