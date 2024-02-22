@@ -44,7 +44,7 @@ const AwardsSection = () => {
   return (
     <section className="mt-12 px-4 sm:px-6 lg:px-8">
       <h2
-        className="text-white text-3xl font-extrabold text-center mb-8"
+        className="text-white text-5xl font-extrabold text-center mb-8"
         data-aos="fade-up"
       >
         Awards

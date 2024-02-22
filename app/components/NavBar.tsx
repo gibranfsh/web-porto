@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import NavLink from "./NavLink";
 import MenuOverlay from "./MenuOverlay";
@@ -35,6 +35,30 @@ const navLinks = [
 
 const NavBar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+
+      // Find the active section based on the scroll position
+      const sections = document.querySelectorAll("section");
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          setActiveSection(section.id);
+        }
+      });
+    };
+
+    // Attach scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Remove scroll event listener when component unmounts
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-10 bg-[#121212] bg-opacity-100">
@@ -69,7 +93,11 @@ const NavBar = () => {
           <ul className="flex p-4 md:p-0 md:flex-row md:space-x-8 mt-0">
             {navLinks.map((navLink, index) => (
               <li key={index}>
-                <NavLink href={navLink.href} title={navLink.title} />
+                <NavLink
+                  href={navLink.href}
+                  title={navLink.title}
+                  isActive={navLink.title.toLowerCase() === activeSection}
+                />
               </li>
             ))}
           </ul>

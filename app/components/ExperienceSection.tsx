@@ -76,10 +76,10 @@ const ExperienceSection = () => {
   return (
     <section className="mt-12 px-4 sm:px-6 lg:px-8">
       <h2
-        className="text-white text-3xl font-extrabold text-center mb-8"
+        className="text-white text-5xl font-extrabold text-center mb-8"
         data-aos="fade-up"
       >
-        Work Experiences
+        Work <span className="text-red-600">Experiences</span>
       </h2>
       <div className="grid gap-8">
         {workExperiences.map((experience, index) => (

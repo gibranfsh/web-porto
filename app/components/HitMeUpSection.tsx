@@ -21,8 +21,8 @@ const HitMeUpSection = () => {
 
   return (
     <section className="mt-12 px-4 sm:px-6 lg:px-8">
-      <h2 className="text-white text-3xl font-extrabold text-center mb-8">
-        Hit Me Up
+      <h2 className="text-white text-5xl font-extrabold text-center mb-8">
+        Hit Me Up!
       </h2>
       {submitted ? (
         <p className="text-center text-gray-300">
@@ -32,7 +32,7 @@ const HitMeUpSection = () => {
         <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
           <div className="flex flex-col mb-4">
             <label htmlFor="name" className="text-gray-400 mb-2">
-              Name
+              Your Name
             </label>
             <input
               type="text"
@@ -40,12 +40,13 @@ const HitMeUpSection = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="bg-gray-800 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring focus:border-blue-300"
+              placeholder="John Doe"
               required
             />
           </div>
           <div className="flex flex-col mb-4">
             <label htmlFor="email" className="text-gray-400 mb-2">
-              Email
+              Your Email
             </label>
             <input
               type="email"
@@ -53,12 +54,13 @@ const HitMeUpSection = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="bg-gray-800 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring focus:border-blue-300"
+              placeholder="john@example.com"
               required
             />
           </div>
           <div className="flex flex-col mb-4">
             <label htmlFor="message" className="text-gray-400 mb-2">
-              Message
+              Your Message
             </label>
             <textarea
               id="message"
@@ -66,9 +68,14 @@ const HitMeUpSection = () => {
               onChange={(e) => setMessage(e.target.value)}
               rows={5}
               className="bg-gray-800 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring focus:border-blue-300"
+              placeholder="How can I help you?"
               required
             ></textarea>
           </div>
+          <p className="text-gray-300 text-sm mb-4">
+            By submitting this form, you agree to let me contact you using the
+            provided information to discuss potential job opportunities.
+          </p>
           <button
             type="submit"
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300"
