@@ -10,14 +10,14 @@ interface Project {
   description: string;
   imageUrl: string;
   techStacks: string[];
-  url: string[];
+  url: string;
 }
 
 const projects: Project[] = [
   {
     name: "Bersama Ashwa",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe sapiente voluptatem consectetur debitis reprehenderit nobis minima ipsum eaque atque? Velit aliquam sapiente itaque explicabo deserunt fugit temporibus non quia similique!",
+      "A Mental Health Service, meticulously designed to facilitate a deeper understanding of oneself. Through the quiz-based testing system, individuals can gain invaluable insights into various aspects of their mental well-being.",
     imageUrl: "/projects/bersamaashwa.png",
     techStacks: [
       "React.js",
@@ -27,20 +27,20 @@ const projects: Project[] = [
       "MongoDB",
       "GCP",
     ],
-    url: ["https://bersamaashwa.com"],
+    url: "https://bersamaashwa.com",
   },
   {
     name: "Help Pals Therapy",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe sapiente voluptatem consectetur debitis reprehenderit nobis minima ipsum eaque atque? Velit aliquam sapiente itaque explicabo deserunt fugit temporibus non quia similique!",
+      "Help Pals Therapy is a platform designed to assist individuals in managing their mental well-being by monitoring daily emotions. Additionally, it offers the capability to evaluate mental health status and provide recommendations for enhancing overall mental wellness.",
     imageUrl: "/projects/helppals.png",
     techStacks: ["Next.js 12", "Javascript", "Tailwind CSS", "MongoDB"],
-    url: ["https://helppalstherapy.com"],
+    url: "https://helppalstherapy.com",
   },
   {
     name: "Karangsalam Lor Village",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe sapiente voluptatem consectetur debitis reprehenderit nobis minima ipsum eaque atque? Velit aliquam sapiente itaque explicabo deserunt fugit temporibus non quia similique!",
+      "Wisata Karangsalam Lor is a platform dedicated to providing information about the Karangsalam Lor Village, offering insights into its attractions and features. Additionally, it facilitates homestay bookings and enhances visitors' understanding of the village's culture and lifestyle.",
     imageUrl: "/projects/desa.png",
     techStacks: [
       "Next.js 12",
@@ -49,12 +49,12 @@ const projects: Project[] = [
       "Prisma",
       "MongoDB",
     ],
-    url: ["https://www.wisatakarangsalam.com"],
+    url: "https://www.wisatakarangsalam.com",
   },
   {
     name: "SPARTA 2022",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe sapiente voluptatem consectetur debitis reprehenderit nobis minima ipsum eaque atque? Velit aliquam sapiente itaque explicabo deserunt fugit temporibus non quia similique!",
+      "A digital platform tailored for the orientation activities of a student organization's recruitment of new members, accommodating over 400 users. It provides functionalities including assignment and material specifications, along with a daily journal feature.",
     imageUrl: "/projects/sparta.png",
     techStacks: [
       "Next.js 13",
@@ -65,12 +65,12 @@ const projects: Project[] = [
       "AWS S3",
       "AWS Amplify",
     ],
-    url: ["https://www.sparta22hmif.com"],
+    url: "https://www.sparta22hmif.com",
   },
   {
     name: "Danain",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe sapiente voluptatem consectetur debitis reprehenderit nobis minima ipsum eaque atque? Velit aliquam sapiente itaque explicabo deserunt fugit temporibus non quia similique!",
+      "Danain is a web platform connecting investors with startup companies. We firmly believe that innovation deserves adequate funding, and we are committed to facilitating its journey.",
     imageUrl: "/projects/danain.png",
     techStacks: [
       "Next.js 13",
@@ -83,12 +83,12 @@ const projects: Project[] = [
       "AWS Amplify",
       "Socket.io",
     ],
-    url: ["https://www.danain.site"],
+    url: "https://www.danain.site",
   },
   {
     name: "Klugee",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe sapiente voluptatem consectetur debitis reprehenderit nobis minima ipsum eaque atque? Velit aliquam sapiente itaque explicabo deserunt fugit temporibus non quia similique!",
+      "A comprehensive English language learning platform tailored specifically for children. This encompassed the creation of promotional materials as well as the administrative and course-related (Computer-Based Training) websites for the company.",
     imageUrl: "/projects/klugee.png",
     techStacks: [
       "Next.js 13",
@@ -99,12 +99,12 @@ const projects: Project[] = [
       "AWS S3",
       "AWS Amplify",
     ],
-    url: ["https://www.klugee.co.id"],
+    url: "https://www.klugee.co.id",
   },
   {
     name: "Ar-Raudah Laundry",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe sapiente voluptatem consectetur debitis reprehenderit nobis minima ipsum eaque atque? Velit aliquam sapiente itaque explicabo deserunt fugit temporibus non quia similique!",
+      "Ar-Raudah Laundry is an integrated website designed to streamline the process of ordering, monitoring, and paying for laundry services through conventional laundry outlets.",
     imageUrl: "/projects/arraudah.png",
     techStacks: [
       "Next.js 13",
@@ -115,13 +115,13 @@ const projects: Project[] = [
       "uploadthing",
       "Vercel",
     ],
-    url: ["https://www.arraudah-laundry.store"],
+    url: "https://www.arraudah-laundry.store",
   },
   {
-    name: "GIN Hotel and Hoteloka",
+    name: "Hoteloka",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe sapiente voluptatem consectetur debitis reprehenderit nobis minima ipsum eaque atque? Velit aliquam sapiente itaque explicabo deserunt fugit temporibus non quia similique!",
-    imageUrl: "/images/project2.jpg",
+      "A hotel provider system (like Traveloka, but for hotel) that allows hotel owners to manage their hotel, room, and booking data. Document Link : https://bit.ly/3OU1tae",
+    imageUrl: "/projects/hoteloka.jpg",
     techStacks: [
       "CodeIgniter",
       "PHP",
@@ -131,18 +131,23 @@ const projects: Project[] = [
       "Docker",
       "Microsoft Azure",
     ],
-    url: [
-      "https://hotel-provider-system.azurewebsites.net",
-      "https://hotel-system.azurewebsites.net",
-    ],
+    url: "https://hotel-provider-system.azurewebsites.net",
   },
   {
-    name: "SEA Cinema",
+    name: "GIN Hotel",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe sapiente voluptatem consectetur debitis reprehenderit nobis minima ipsum eaque atque? Velit aliquam sapiente itaque explicabo deserunt fugit temporibus non quia similique!",
-    imageUrl: "/images/project2.jpg",
-    techStacks: ["Laravel", "React.js", "PHP", "Javascript", "SQLite"],
-    url: ["https://github.com/your-username/project2"],
+      "A hotel system for managing hotel bookings, room availability, and customer data. This system is designed to be user-friendly and easy to use. Document Link : https://bit.ly/3OU1tae",
+    imageUrl: "/projects/ginhotel.jpg",
+    techStacks: [
+      "CodeIgniter",
+      "PHP",
+      "TailwindCSS",
+      "Bootstrap",
+      "MySQL",
+      "Docker",
+      "Microsoft Azure",
+    ],
+    url: "https://hotel-provider-system.azurewebsites.net",
   },
 ];
 
@@ -157,8 +162,8 @@ const ProjectSection = () => {
   }, []);
 
   return (
-    <section className="mt-12 px-4 sm:px-6 lg:px-8">
-      <h2 className="text-white text-5xl font-extrabold text-center mb-8">
+    <section className="mt-12 px-4 sm:px-6 lg:px-8" id="projects">
+      <h2 className="text-white text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center mb-8">
         My <span className="text-red-600">Projects</span>
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -206,7 +211,7 @@ const ProjectCard = ({
 
   return (
     <div
-      className="bg-gray-900 rounded-lg shadow-md overflow-hidden w-full"
+      className="bg-gray-900 rounded-lg shadow-md overflow-hidden w-full flex flex-col"
       data-aos="fade-up"
       data-aos-duration="1000"
       data-aos-delay={(index + 1) * 100}
@@ -221,12 +226,12 @@ const ProjectCard = ({
           />
         </div>
       </div>
-      <div className="p-4">
+      <div className="p-4 flex-1 flex flex-col items-start">
         <h3 className="text-xl font-semibold text-white mb-2">
           {project.name}
         </h3>
         <p className="text-gray-300 mb-4">{project.description}</p>
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-2 mb-auto">
           {project.techStacks.map((tech, index) => (
             <span
               key={index}
@@ -236,20 +241,16 @@ const ProjectCard = ({
             </span>
           ))}
         </div>
-        <div className="flex gap-2">
-          {project.url.map((url, index) => (
-            <a
-              key={index}
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md transition duration-300"
-              ref={glitch.ref}
-            >
-              View Website {project.url.length > 1 ? index + 1 : ""}
-            </a>
-          ))}
-        </div>
+        <a
+          key={index}
+          href={project.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-block bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md transition duration-300"
+          ref={glitch.ref}
+        >
+          View Website
+        </a>
       </div>
     </div>
   );

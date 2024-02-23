@@ -78,16 +78,16 @@ const HeroSection = () => {
           <h1 className="font-bold text-transparent bg-clip-text bg-red-600 text-2xl sm:text-3xl mb-4">
             Current Status
           </h1>
-          <div className="flex flex-row items-center justify-center sm:justify-start">
-            <BriefcaseIcon className="h-6 w-6 text-white mr-2" />
+          <div className="w-full flex flex-row items-center justify-start sm:justify-start">
+            <BriefcaseIcon className="h-6 w-6 text-white mr-2 flex-none" />
             <span className="text-white text-sm sm:text-md">
               Backend Engineer Intern @{" "}
               <span className="font-bold">PT DOT Indonesia</span>
             </span>
           </div>
-          <div className="flex flex-row items-center justify-center sm:justify-start mt-2">
-            <AcademicCapIcon className="h-6 w-6 text-white mr-2" />
-            <span className="text-white text-sm sm:text-md">
+          <div className="w-full flex flex-row items-center justify-start sm:justify-start mt-2">
+            <AcademicCapIcon className="text-white mr-2 w-6 flex-none" />
+            <span className="text-white text-sm sm:text-md text-left">
               Penultimate Information System and Techology @{" "}
               <span className="font-bold">Institut Teknologi Bandung</span>
             </span>

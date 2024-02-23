@@ -17,7 +17,7 @@ const TechStackSection = () => {
   return (
     <section className="mt-12 px-4 sm:px-6 lg:px-8" id="tech_stacks">
       <h2
-        className="text-white text-5xl font-extrabold text-center mb-8"
+        className="text-white text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center mb-8"
         data-aos="fade-up"
       >
         Tech Stacks & <span className="text-red-600">Tools</span>
