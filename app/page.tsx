@@ -61,7 +61,7 @@ const Home = () => {
           color: "#E53935",
           distance: 150,
           enable: true,
-          opacity: 0.5,
+          opacity: 0.7,
           width: 1,
         },
         move: {
