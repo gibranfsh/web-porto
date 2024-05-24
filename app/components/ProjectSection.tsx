@@ -15,57 +15,29 @@ interface Project {
 
 const projects: Project[] = [
   {
-    name: "Bersama Ashwa",
+    name: "EpidemIT",
     description:
-      "A Mental Health Service, meticulously designed to facilitate a deeper understanding of oneself. Through the quiz-based testing system, individuals can gain invaluable insights into various aspects of their mental well-being.",
-    imageUrl: "/projects/bersamaashwa.png",
+      "An inclusive IT education platform, integrated AI for enhanced learning and helps people with disabilities, provided financial support, utilized gamification for engagement, advanced global social and economic inclusion (SDGs 4, 8, and 10).",
+    imageUrl: "/projects/epidemit.png",
     techStacks: [
-      "React.js",
-      "Javascript",
-      "CSS",
-      "Express.js",
-      "MongoDB",
+      "Go",
+      "GoFiber",
+      "GORM",
+      "CockroachDB",
+      "PostgreSQL",
+      "DatoCMS",
+      "Next.js 13.5.6",
+      "Typescript",
+      "Tailwind CSS",
+      "Flask",
+      "Python",
+      "Sci-kit Learn",
+      "Tensorflow",
+      "AWS",
       "GCP",
+      "Docker",
     ],
-    url: "https://bersamaashwa.com",
-  },
-  {
-    name: "Help Pals Therapy",
-    description:
-      "Help Pals Therapy is a platform designed to assist individuals in managing their mental well-being by monitoring daily emotions. Additionally, it offers the capability to evaluate mental health status and provide recommendations for enhancing overall mental wellness.",
-    imageUrl: "/projects/helppals.png",
-    techStacks: ["Next.js 12", "Javascript", "Tailwind CSS", "MongoDB"],
-    url: "https://helppalstherapy.com",
-  },
-  {
-    name: "Karangsalam Lor Village",
-    description:
-      "Wisata Karangsalam Lor is a platform dedicated to providing information about the Karangsalam Lor Village, offering insights into its attractions and features. Additionally, it facilitates homestay bookings and enhances visitors' understanding of the village's culture and lifestyle.",
-    imageUrl: "/projects/desa.png",
-    techStacks: [
-      "Next.js 12",
-      "Typescript",
-      "Tailwind CSS",
-      "Prisma",
-      "MongoDB",
-    ],
-    url: "https://www.wisatakarangsalam.com",
-  },
-  {
-    name: "SPARTA 2022",
-    description:
-      "A digital platform tailored for the orientation activities of a student organization's recruitment of new members, accommodating over 400 users. It provides functionalities including assignment and material specifications, along with a daily journal feature.",
-    imageUrl: "/projects/sparta.png",
-    techStacks: [
-      "Next.js 13",
-      "Typescript",
-      "Tailwind CSS",
-      "Prisma",
-      "MongoDB",
-      "AWS S3",
-      "AWS Amplify",
-    ],
-    url: "https://www.sparta22hmif.com",
+    url: "https://main.d1iex298jj9b2k.amplifyapp.com",
   },
   {
     name: "Danain",
@@ -86,10 +58,10 @@ const projects: Project[] = [
     url: "https://www.danain.site",
   },
   {
-    name: "Klugee",
+    name: "SPARTA 2022",
     description:
-      "A comprehensive English language learning platform tailored specifically for children. This encompassed the creation of promotional materials as well as the administrative and course-related (Computer-Based Training) websites for the company.",
-    imageUrl: "/projects/klugee.png",
+      "A digital platform tailored for the orientation activities of a student organization's recruitment of new members, accommodating over 400 users. It provides functionalities including assignment and material specifications, along with a daily journal feature.",
+    imageUrl: "/projects/sparta.png",
     techStacks: [
       "Next.js 13",
       "Typescript",
@@ -99,7 +71,44 @@ const projects: Project[] = [
       "AWS S3",
       "AWS Amplify",
     ],
-    url: "https://www.klugee.co.id",
+    url: "https://www.sparta22hmif.com",
+  },
+  {
+    name: "Karangsalam Lor Village",
+    description:
+      "Wisata Karangsalam Lor is a platform dedicated to providing information about the Karangsalam Lor Village, offering insights into its attractions and features. Additionally, it facilitates homestay bookings and enhances visitors' understanding of the village's culture and lifestyle.",
+    imageUrl: "/projects/desa.png",
+    techStacks: [
+      "Next.js 12",
+      "Typescript",
+      "Tailwind CSS",
+      "Prisma",
+      "MongoDB",
+    ],
+    url: "https://www.wisatakarangsalam.com",
+  },
+  {
+    name: "Help Pals Therapy",
+    description:
+      "Help Pals Therapy is a platform designed to assist individuals in managing their mental well-being by monitoring daily emotions. Additionally, it offers the capability to evaluate mental health status and provide recommendations for enhancing overall mental wellness.",
+    imageUrl: "/projects/helppals.png",
+    techStacks: ["Next.js 12", "Javascript", "Tailwind CSS", "MongoDB"],
+    url: "https://helppalstherapy.com",
+  },
+  {
+    name: "Bersama Ashwa",
+    description:
+      "A Mental Health Service, meticulously designed to facilitate a deeper understanding of oneself. Through the quiz-based testing system, individuals can gain invaluable insights into various aspects of their mental well-being.",
+    imageUrl: "/projects/bersamaashwa.png",
+    techStacks: [
+      "React.js",
+      "Javascript",
+      "CSS",
+      "Express.js",
+      "MongoDB",
+      "GCP",
+    ],
+    url: "https://bersamaashwa.com",
   },
   {
     name: "Ar-Raudah Laundry",
