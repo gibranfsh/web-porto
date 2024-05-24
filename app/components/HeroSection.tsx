@@ -81,8 +81,8 @@ const HeroSection = () => {
           <div className="w-full flex flex-row items-center justify-start sm:justify-start">
             <BriefcaseIcon className="h-6 w-6 text-white mr-2 flex-none" />
             <span className="text-white text-sm sm:text-md">
-              Ex-Backend Engineer Intern @{" "}
-              <span className="font-bold">PT DOT Indonesia</span>
+              Software Engineer Intern @{" "}
+              <span className="font-bold">Central Bank of Indonesia</span>
             </span>
           </div>
           <div className="w-full flex flex-row items-center justify-start sm:justify-start mt-2">
