@@ -14,10 +14,18 @@ interface WorkExperience {
 
 const workExperiences: WorkExperience[] = [
   {
+    company: "Bank Indonesia",
+    image: "/work_experiences/bi.jpg",
+    position: "Software Engineer Intern",
+    duration: "June 2024 - Present",
+    description:
+      "Currently developing an internal presence management system using a face recognition algorithm for employees called BI-Presence, with a team of 4 including me. Utilizing cutting edge techologies, such as C#, .NET Core, Javascript, Vue.js, Python, TensorFlow, Scikit-Learn, Convolutional Neural Networks (CNN), Deep Learning, Tailwind CSS, Machine Learning, and Microsoft SQL Server",
+  },
+  {
     company: "DOT Indonesia",
     image: "/work_experiences/dot.jpg",
     position: "Backend Engineer Intern",
-    duration: "Dec 2023 - Present",
+    duration: "Dec 2023 - April 2024",
     description:
       "I have contributed to various projects, including creating database documentation for the revamped website of the General Secretariat of the Indonesian House of Representatives (DPR RI), developing an API for retrieving employees' overtime hours by specific projects, and designing a user interface (Frontend) while implementing corresponding functionality (Backend) to enable time entity filtering, along with an export feature to Excel. Additionally, I am currently working on Dotify, an HRIS website for DOT Indonesia. These projects involved the utilization of cutting-edge technologies such as Laravel, Vue.js, Inertia.js, MariaDB, DBeaver, Laragon, Filament, and TailwindCSS.",
   },
@@ -57,7 +65,7 @@ const workExperiences: WorkExperience[] = [
     company: "IEEE ITB Student Branch",
     image: "/work_experiences/ieeeitb.jpg",
     position: "Backend Developer",
-    duration: "June 2023 - Present",
+    duration: "June 2023 - May 2024",
     description:
       "I implemented DatoCMS models and GraphQL queries to efficiently manage and display content on the website. Additionally, I integrated a real-time updates management system using DatoCMS, enabling administrators to effortlessly create, update, and organize various events and news, ensuring seamless communication and engagement with users.",
   },

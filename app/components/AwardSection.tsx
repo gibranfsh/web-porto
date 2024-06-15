@@ -12,22 +12,22 @@ interface Award {
 const awards: Award[] = [
   {
     title:
-      "[National] Top 5 Web Development Competition Informatics Festival 2023",
+      "[National] Top 5 Web Development Competition Informatics Festival 2023 by Padjajaran University",
     date: "October 2023",
-    description:
-      "Successfully secured top 5 in the Web Development Competition at the 2023 Informatics Festival by UNPAD. Competing against numerous teams, my team successfully qualified and demonstrated skills in web development. Danain is the name of our website.",
+    description: `• Received recognition in a Hackathon focused on real-world economic issues, demonstrating adeptness in addressing economic challenges and fostering entrepreneurship by developing a website platform called "Danain", connecting startups with investors.\n• As a Backend Engineer, I played a pivotal role in architecting and developing the backend infrastructure, ensuring robust functionality and seamless integration with frontend components. This involved designing database schemas, implementing RESTful API endpoints, and optimizing server-side processes for optimal performance and scalability.`,
   },
   {
-    title: "[National] Best Idea SLASHCOM x HACKATHON Competition 2023",
+    title:
+      "[National] Top 5 Web Development Competition Informatics Festival 2023 by Padjajaran University",
+    date: "October 2023",
+    description: `• Received recognition in a Hackathon focused on real-world economic issues, demonstrating adeptness in addressing economic challenges and fostering entrepreneurship by developing a website platform called "Danain", connecting startups with investors.\n• As a Backend Engineer, I played a pivotal role in architecting and developing the backend infrastructure, ensuring robust functionality and seamless integration with frontend components. This involved designing database schemas, implementing RESTful API endpoints, and optimizing server-side processes for optimal performance and scalability.`,
+  },
+  {
+    title:
+      "[National] Best Idea SLASHCOM x HACKATHON Competition 2023 by UPNVJ",
     date: "June 2023",
-    description:
-      'Granted as the team with the Best Idea in Slashcom x Hackathon Competition 2023. Issued by Universitas Pembangunan Nasional "Veteran" Jakarta (UPNVJ).',
-  },
-  {
-    title: "[National] Semifinalist at Hackfest 2023",
-    date: "March 2023",
-    description:
-      "Successfully qualified as a semi-finalist at the Hackathon competition that have a objective to solve SDGs problem. My team (4 people including me) developed an IT-based solution for connecting organizations seeking IT product development with individuals looking to enhance their IT career experience. We call it Skillective. Aimed at overcoming SDG 4 (Quality Education) and SDG 8 (Decent Work and Economic Growth) problems.",
+    description: `• Propose a startup that supports SDGs 4 and 8, focusing on the quality of education and economic growth, by addressing the challenges faced by students in direct learning through real projects\n
+• As a full stack engineer, I spearheaded the development of both backend and some of the frontend components for our proposed startup project, ensuring robust communication between client and server interfaces.\nIssued by Universitas Pembangunan Nasional "Veteran" Jakarta (UPNVJ).`,
   },
 ];
 
