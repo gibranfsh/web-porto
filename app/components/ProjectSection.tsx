@@ -40,6 +40,22 @@ const projects: Project[] = [
     url: "https://main.d1iex298jj9b2k.amplifyapp.com",
   },
   {
+    name: "Klugee",
+    description:
+      "A comprehensive English language learning platform tailored specifically for children. This encompassed the creation of promotional materials as well as the administrative and course-related (Computer-Based Training) websites for the company.",
+    imageUrl: "/projects/klugee.png",
+    techStacks: [
+      "Next.js 13",
+      "Typescript",
+      "Tailwind CSS",
+      "Prisma",
+      "MongoDB",
+      "AWS S3",
+      "AWS Amplify",
+    ],
+    url: "https://www.klugee.co.id",
+  },
+  {
     name: "Danain",
     description:
       "Danain is a web platform connecting investors with startup companies. We firmly believe that innovation deserves adequate funding, and we are committed to facilitating its journey.",
