@@ -97,7 +97,7 @@ const HeroSection = () => {
               className="px-6 py-3 w-full sm:w-fit rounded-full mr-4 bg-white hover:bg-slate-200 text-black"
               onClick={() =>
                 window.open(
-                  "https://drive.google.com/file/d/1WlZad437ItfxG8fP6cRldn3Wp2fNO2_s/view?usp=sharing",
+                  "https://drive.google.com/file/d/1mLYS9wYOl6sdk96GVt3c1PbHlwxYgg1x/view?usp=sharing",
                   "_blank"
                 )
               }
