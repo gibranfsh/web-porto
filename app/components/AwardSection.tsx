@@ -47,7 +47,7 @@ const AwardsSection = () => {
         className="text-white text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center mb-8"
         data-aos="fade-up"
       >
-        Awards
+        Awards (outdated)
       </h2>
       <div className="grid gap-8">
         {awards.map((award, index) => (

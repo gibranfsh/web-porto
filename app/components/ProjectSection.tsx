@@ -189,7 +189,7 @@ const ProjectSection = () => {
   return (
     <section className="mt-12 px-4 sm:px-6 lg:px-8" id="projects">
       <h2 className="text-white text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center mb-8">
-        My <span className="text-red-600">Projects</span>
+        My <span className="text-red-600">Projects</span> (outdated)
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {projects.map((project, index) => (

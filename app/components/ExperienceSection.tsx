@@ -87,7 +87,7 @@ const ExperienceSection = () => {
         className="text-white text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center mb-8"
         data-aos="fade-up"
       >
-        Work <span className="text-red-600">Experiences</span>
+        Work <span className="text-red-600">Experiences</span> (outdated)
       </h2>
       <div className="grid gap-8">
         {workExperiences.map((experience, index) => (

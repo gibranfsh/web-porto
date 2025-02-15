@@ -20,7 +20,7 @@ const TechStackSection = () => {
         className="text-white text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center mb-8"
         data-aos="fade-up"
       >
-        Tech Stacks & <span className="text-red-600">Tools</span>
+        Tech Stacks & <span className="text-red-600">Tools</span> (outdated)
       </h2>
       <div
         className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4 justify-items-center"
