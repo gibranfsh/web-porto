@@ -3,72 +3,73 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { BriefcaseIcon, CalendarIcon } from "@heroicons/react/24/outline";
 
-interface WorkExperience {
+interface Experience {
+  title: string;
   company: string;
-  image: string;
-  position: string;
-  duration: string;
-  description: string;
+  location: string;
+  period: string;
+  description: string[];
+  logoUrl: string;
 }
 
-const workExperiences: WorkExperience[] = [
+const experiences: Experience[] = [
   {
-    company: "Bank Indonesia",
-    image: "/work_experiences/bi.jpg",
-    position: "Software Engineer Intern",
-    duration: "June 2024 - Present",
-    description:
-      "Currently developing an internal presence management system using a face recognition algorithm for employees called BI-Presence, with a team of 4 including me. Utilizing cutting edge techologies, such as C#, .NET Core, Javascript, Vue.js, Python, TensorFlow, Scikit-Learn, Convolutional Neural Networks (CNN), Deep Learning, Tailwind CSS, Machine Learning, and Microsoft SQL Server",
+    title: "Software Engineer Intern",
+    company: "Grab",
+    location: "Jakarta, Indonesia",
+    period: "September 2024 - December 2024",
+    description: [
+      "Selected as one of the 50 interns out of over 19,700 applicants, with an acceptance rate of 0.25%.",
+      "Chosen as the GCAP Brand Ambassador of Tech Engineering 2024, acting as a point of contact between tech engineering interns and the HR Team.",
+      "Successfully reduced daily failed transactions due to duplicate transactions from approximately 1,500-2,000 to zero, achieving a 100% error log elimination.",
+      "Eliminated around 3,000 potential daily error logs across three services by fixing disconnected Apache Kafka issues and resolved ciphertext errors caused by Redis.",
+      "Decommissioned 10 deprecated services, reducing annual operational costs for GrabKios. Utilized Kubernetes (k8s), Helm Charts, Terraform, AWS services, Datadog, MariaDB, CI/CD, Docker, and Apache Kafka.",
+      "Designed and developed the Status Checking for Biller Recharge History feature from scratch, including building engineering specifications."
+    ],
+    logoUrl: "/work_experiences/grab.png"
   },
   {
+    title: "Software Engineer Intern",
+    company: "Central Bank of Indonesia",
+    location: "Jakarta, Indonesia",
+    period: "June 2024 - August 2024",
+    description: [
+      "Developed an internal presence management system using a face recognition algorithm called \"BI-Presence\".",
+      "Engineered robust RESTful API endpoints using the .NET Core framework with a repository pattern.",
+      "Designed the system architecture encompassing front-end, back-end, machine learning, camera integration, database, and storage.",
+      "Integrated front-end, back-end, and machine learning components through seamless API connections.",
+      "Utilized technologies like C#, .NET Core, Typescript, Vue.js, Tailwind CSS, Machine Learning, and MSQL Server."
+    ],
+    logoUrl: "/work_experiences/bi.jpg"
+  },
+  {
+    title: "Backend Engineer Intern",
     company: "DOT Indonesia",
-    image: "/work_experiences/dot.jpg",
-    position: "Backend Engineer Intern",
-    duration: "Dec 2023 - April 2024",
-    description:
-      "I have contributed to various projects, including creating database documentation for the revamped website of the General Secretariat of the Indonesian House of Representatives (DPR RI), developing an API for retrieving employees' overtime hours by specific projects, and designing a user interface (Frontend) while implementing corresponding functionality (Backend) to enable time entity filtering, along with an export feature to Excel. Additionally, I am currently working on Dotify, an HRIS website for DOT Indonesia. These projects involved the utilization of cutting-edge technologies such as Laravel, Vue.js, Inertia.js, MariaDB, DBeaver, Laragon, Filament, and TailwindCSS.",
+    location: "Bandung, Indonesia",
+    period: "December 2023 - April 2024",
+    description: [
+      "Created database documentation for revamped General Secretariat of DPR RI website.",
+      "Mirrored internal HRIS website from Laravel/Inertia to Laravel/Filament (Fullstack) that serves for ±110 employees.",
+      "Implemented secure APIs with high scalability and low cost queries.",
+      "Utilized technologies like Laravel, PHP, Vue.js, Inertia, MariaDB, Filament, TailwindCSS, and Postman API."
+    ],
+    logoUrl: "/work_experiences/dot.jpg"
   },
   {
-    company: "Inkubator IT",
-    image: "/work_experiences/inkubatorit.png",
-    position: "Software Engineer",
-    duration: "March 2023 - Present",
-    description:
-      "During my undergraduate studies, I successfully completed 5 website development projects for external clients/stakeholders. These projects span various domains, including mental health, village services, dormitories, and English language courses. Collaborating with UI/UX designers, project managers, and frontend developers, I ensured seamless project execution. Assigned by the IT Incubator of the HMIF ITB, these projects held a total value exceeding ±50 million Indonesian Rupiah. Leveraging technologies such as HTML, CSS, TailwindCSS, JavaScript, TypeScript, Express.js, React.js, Next.js, Prisma ORM, MongoDB, PostgreSQL, MySQL, AWS, GCP, Virtual Machine, Linux/Bash, Git, Docker, and Postman, I delivered robust and innovative solutions to meet client requirements.",
-  },
-  {
-    company: "BIST League 2023",
-    image: "/work_experiences/bistleague.jpg",
-    position: "Backend Developer",
-    duration: "October 2023 - December 2023",
-    description:
-      "I contributed to the backend development of the BIST League 2023 website, enhancing its information services. This involved developing Team Information and Team Submission API Endpoints, as well as SQL queries, while also fulfilling the role of website maintainer. Leveraging technologies such as Go, GoFiber, PostgreSQL, CockroachDB, Docker, and Postman, I ensured the smooth operation and optimization of the platform.",
-  },
-  {
-    company: "ITB October Graduation Parade 2023",
-    image: "/work_experiences/paradewisuda.png",
-    position: "Backend Developer",
-    duration: "September 2023 - October 2023",
-    description:
-      "I contributed to the backend development of the Parade Wisuda Oktober ITB 2023 website, enhancing its information services. Additionally, I developed WisokFess, a platform enabling anonymous messaging between users, thereby fostering community interaction. Leveraging cutting-edge technologies such as Typescript, Next.js, Prisma, PostgreSQL, and Postman API, I ensured the robustness and efficiency of both projects.",
-  },
-  {
-    company: "SPARTA 2022 HMIF ITB",
-    image: "/work_experiences/sparta2022hmifitb.ico",
-    position: "Backend Developer",
-    duration: "June 2023 - July 2023",
-    description:
-      "I contributed to the backend system development of a website offering organizational orientation program services for HMIF ITB, catering to over 400 participants. This involved implementing Authentication using Next-Auth, creating schemas using Prisma and MongoDB, securing existing pages, and designing, creating, and testing API endpoints with a REST structure. Leveraging cutting-edge technologies such as Typescript, Next.js, Postman, AWS Amplify, and S3, I ensured the platform's functionality, security, and scalability met the project's requirements.",
-  },
-  {
-    company: "IEEE ITB Student Branch",
-    image: "/work_experiences/ieeeitb.jpg",
-    position: "Backend Developer",
-    duration: "June 2023 - May 2024",
-    description:
-      "I implemented DatoCMS models and GraphQL queries to efficiently manage and display content on the website. Additionally, I integrated a real-time updates management system using DatoCMS, enabling administrators to effortlessly create, update, and organize various events and news, ensuring seamless communication and engagement with users.",
-  },
+    title: "Software Engineer",
+    company: "Inkubator IT HMIF ITB",
+    location: "Bandung, Indonesia",
+    period: "December 2022 - January 2024",
+    description: [
+      "Successfully completed 5 website development projects for external clients/stakeholders during undergraduate studies.",
+      "Collaborated with UI/UX designers, project managers, and frontend developers on projects in various domains.",
+      "Developed websites for mental health services, village services, dormitories, and English language courses.",
+      "Utilized technologies like TypeScript, Next.js, Prisma ORM, MongoDB, PostgreSQL, MySQL, AWS, GCP, Docker, and Postman."
+    ],
+    logoUrl: "/work_experiences/inkubatorit.png"
+  }
 ];
 
 const ExperienceSection = () => {
@@ -79,61 +80,101 @@ const ExperienceSection = () => {
       offset: 50,
       delay: 50,
     });
-  });
+  }, []);
 
   return (
-    <section className="mt-12 px-4 sm:px-6 lg:px-8" id="experiences">
-      <h2
-        className="text-white text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center mb-8"
-        data-aos="fade-up"
-      >
-        Work <span className="text-red-600">Experiences</span> (outdated)
-      </h2>
-      <div className="grid gap-8">
-        {workExperiences.map((experience, index) => (
-          <WorkExperienceCard
-            key={index}
-            experience={experience}
-            index={index}
-          />
-        ))}
+    <section className="mt-24 px-4 sm:px-6 lg:px-8" id="experiences">
+      <div className="relative mb-16" data-aos="fade-up">
+        <div className="flex flex-col items-center">
+          <div className="flex items-center mb-2">
+            <BriefcaseIcon className="h-6 w-6 text-red-500 mr-2" />
+            <span className="text-sm uppercase tracking-widest text-gray-400 font-medium">Career Path</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center mb-4">
+            Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">Experience</span>
+          </h2>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-0.5 bg-red-600"></div>
+            <div className="w-4 h-4 rounded-full bg-red-600 animate-pulse"></div>
+            <div className="w-12 h-0.5 bg-red-600"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="relative max-w-5xl mx-auto">
+        {/* Timeline line */}
+        <div className="absolute left-4 md:left-1/2 h-full w-0.5 bg-red-600 transform -translate-x-1/2"></div>
+        
+        {/* Experience items */}
+        <div className="space-y-12">
+          {experiences.map((exp, index) => (
+            <div 
+              key={index}
+              className={`relative flex flex-col md:flex-row ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+              data-aos={index % 2 === 0 ? "fade-left" : "fade-right"}
+              data-aos-duration="800"
+              data-aos-delay={index * 100}
+            >
+              {/* Timeline dot */}
+              <div className="absolute left-4 md:left-1/2 w-8 h-8 bg-red-600 rounded-full transform -translate-x-1/2 flex items-center justify-center z-10">
+                <BriefcaseIcon className="h-4 w-4 text-white" />
+              </div>
+              
+              {/* Content */}
+              <div className={`ml-12 md:ml-0 md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto md:pr-12' : 'md:ml-auto md:pl-12'}`}>
+                <div className="bg-gray-800 rounded-lg p-6 shadow-lg transform transition-all duration-300 hover:shadow-red-600/20 hover:-translate-y-1 border border-gray-700 hover:border-red-600/30">
+                  {/* Company and title section */}
+                  <div className="flex items-center mb-4">
+                    <div className="relative w-12 h-12 mr-4 rounded-md overflow-hidden bg-gray-700 flex items-center justify-center flex-shrink-0">
+                      {exp.logoUrl ? (
+                        <Image
+                          src={exp.logoUrl}
+                          alt={exp.company}
+                          fill
+                          className="object-contain p-1"
+                          sizes="48px"
+                        />
+                      ) : (
+                        <BriefcaseIcon className="h-6 w-6 text-white" />
+                      )}
+                    </div>
+                    <div>
+                      <h3 className="text-lg sm:text-xl font-bold text-white">{exp.title}</h3>
+                      <p className="text-red-500 font-medium">{exp.company}</p>
+                    </div>
+                  </div>
+                  
+                  {/* Period and location with better spacing */}
+                  <div className="mb-4">
+                    <div className="flex items-center text-gray-400 text-sm mb-1">
+                      <CalendarIcon className="h-4 w-4 mr-2 flex-shrink-0" />
+                      <span className="font-medium">{exp.period}</span>
+                    </div>
+                    <div className="flex items-center text-gray-400 text-sm">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      <span>{exp.location}</span>
+                    </div>
+                  </div>
+                  
+                  {/* Description with improved line spacing and bullet points */}
+                  <ul className="space-y-2.5 text-gray-300 text-sm sm:text-base">
+                    {exp.description.map((item, i) => (
+                      <li key={i} className="flex">
+                        <span className="text-red-500 mr-2 mt-1 flex-shrink-0">▹</span>
+                        <span className="leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
-  );
-};
-
-const WorkExperienceCard = ({
-  experience,
-  index,
-}: {
-  experience: WorkExperience;
-  index: number;
-}) => {
-  return (
-    <div
-      className="flex flex-col sm:flex-row gap-8 bg-gray-900 rounded-lg shadow-md p-6"
-      data-aos="fade-up"
-      data-aos-duration="1000"
-      data-aos-delay={(index + 1) * 100}
-    >
-      <div className="flex justify-center items-center w-32 h-32">
-        <Image
-          src={experience.image}
-          alt={experience.company}
-          width={300}
-          height={300}
-          className="rounded-lg"
-        />
-      </div>
-      <div className="w-full flex flex-col justify-between">
-        <h3 className="text-xl font-semibold text-white mb-2">
-          {experience.company}
-        </h3>
-        <p className="text-gray-400 text-lg mb-2">{experience.position}</p>
-        <p className="text-gray-400 mb-2">{experience.duration}</p>
-        <p className="text-gray-400">{experience.description}</p>
-      </div>
-    </div>
   );
 };
 

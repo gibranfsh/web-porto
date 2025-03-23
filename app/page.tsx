@@ -103,7 +103,7 @@ const Home = () => {
         options={options as any}
         className="absolute inset-0 z-0"
       />
-      <div className="container mt-24 mx-auto px-4 py-4 relative">
+      <div className="container mx-auto px-4 py-4 relative">
         <HeroSection />
         <FaArrowDownLong className="text-white text-4xl mx-auto my-32 animate-bounce w-6 h-6" />
         <TechStackSection />
