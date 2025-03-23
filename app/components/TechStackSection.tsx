@@ -398,7 +398,7 @@ const TechIcon = ({
     "GraphiQL": "graphql",
     "Gofiber": "go",
     "Clockify": "clockify",
-    "Filament": "laravel",
+    "Filament": "filament",
     "VS Code": "visualstudiocode",
     "ChatGPT": "openai",
     "DeepSeek": "openai",
