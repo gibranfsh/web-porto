@@ -23,7 +23,7 @@ const awards: Award[] = [
   {
     title: "1st Winner ITB Online Hackathon Pra-Gemastik XVII: Software Engineering Competition",
     date: "June 2024",
-    description: `• Led a team of four to win first place in the ITB Pra-Gemastik XVII Software Engineering competition, demonstrating strong technical leadership and collaborative skills.\n
+    description: `• Led a team of three to win first place in the ITB Pra-Gemastik XVII Software Engineering competition, demonstrating strong technical leadership and collaborative skills.\n
 • Developed a comprehensive software solution that addressed real-world challenges while adhering to competition requirements for innovation, usability, and technical implementation.\n
 • Showcased expertise in software architecture, coding practices, and problem-solving under time constraints.`,
     type: "university",
