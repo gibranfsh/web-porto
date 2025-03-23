@@ -13,6 +13,7 @@
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.2.2",
     "aos": "^2.3.4",
+    "framer-motion": "^12.5.0",
     "next": "^13.5.8",
     "react": "^18",
     "react-dom": "^18",
