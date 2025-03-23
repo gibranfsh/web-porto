@@ -96,7 +96,6 @@ const HeroSection = () => {
                     display: "block",
                     minWidth: "100%",
                     width: "max-content",
-                    // Removed the media query causing the TypeScript error
                   }}
                 />
               </div>
@@ -116,24 +115,18 @@ const HeroSection = () => {
 
           <div className="space-y-4 mb-8">
             {" "}
-            {/* Increased spacing between items */}
             <div className="w-full flex flex-row items-start sm:items-center justify-start">
               {" "}
-              {/* Changed to items-start on mobile */}
               <div className="bg-red-600/20 p-2 rounded-full mr-3 flex-none mt-1 sm:mt-0">
                 {" "}
-                {/* Added mt-1 for better alignment on mobile */}
                 <BriefcaseIcon className="h-5 w-5 text-red-500" />
               </div>
               <div className="flex-1">
                 {" "}
-                {/* Added a div wrapper with flex-1 */}
                 <span className="text-white text-sm sm:text-base block">
                   {" "}
-                  {/* Made block to ensure proper wrapping */}
                   <span className="font-bold relative inline-block px-2 py-1 rounded bg-gradient-to-r from-red-900 to-red-800 mb-1">
                     {" "}
-                    {/* Added inline-block and mb-1 */}
                     <span className="relative z-10">
                       ACTIVELY LOOKING FOR A JOB!
                     </span>
@@ -142,8 +135,7 @@ const HeroSection = () => {
                   </span>
                   <span className="block sm:inline mt-1 sm:mt-0 sm:ml-1">
                     {" "}
-                    {/* Added block on mobile, inline on larger screens */}-
-                    Ready to rock your team and make your company massively
+                    - Ready to rock your team and make your company massively
                     grow!
                   </span>
                 </span>
@@ -151,15 +143,12 @@ const HeroSection = () => {
             </div>
             <div className="w-full flex flex-row items-start sm:items-center justify-start">
               {" "}
-              {/* Changed to items-start on mobile */}
               <div className="bg-red-600/20 p-2 rounded-full mr-3 flex-none mt-1 sm:mt-0">
                 {" "}
-                {/* Added mt-1 for better alignment on mobile */}
                 <AcademicCapIcon className="h-5 w-5 text-red-500" />
               </div>
               <div className="flex-1">
                 {" "}
-                {/* Added a div wrapper with flex-1 */}
                 <span className="text-white text-sm sm:text-base">
                   Final Year Information System and Technology @{" "}
                   <span className="font-bold">Institut Teknologi Bandung</span>
