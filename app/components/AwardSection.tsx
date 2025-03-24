@@ -68,16 +68,16 @@ const AwardsSection = () => {
     : awards.filter(award => award.type === filter);
 
   return (
-    <section className="mt-24 px-4 sm:px-6 lg:px-8" id="awards">
-      <div className="text-center mb-16 relative" data-aos="fade-up">
-        <div className="absolute top-1/2 left-0 right-0 transform -translate-y-1/2">
+    <section className="mt-24 px-4 sm:px-6 lg:px-8 overflow-hidden" id="awards">
+      <div className="text-center mb-16 relative overflow-hidden" data-aos="fade-up">
+        <div className="absolute top-1/2 left-0 right-0 transform -translate-y-1/2 overflow-hidden">
           <div className="flex justify-center">
-            <div className="text-8xl font-bold text-gray-800/10">AWARDS</div>
+            <div className="text-6xl sm:text-8xl font-bold text-gray-800/10 max-w-full">AWARDS</div>
           </div>
         </div>
         <div className="relative z-10">
           <span className="inline-block px-4 py-1 bg-red-600/20 rounded-full text-red-500 text-sm font-medium mb-4">Recognition</span>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-2">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-2 whitespace-normal">
             My <span className="text-red-600">Achievements</span>
           </h2>
           <p className="text-gray-400 max-w-md mx-auto">Accolades and honors received throughout my academic and professional journey</p>

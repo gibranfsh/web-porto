@@ -211,7 +211,7 @@ const HeroSection = () => {
         </motion.div>
 
         <motion.div
-          className="col-span-5 place-self-center pl-20 xs:pl-0 mt-8 lg:mt-0 w-full flex justify-center"
+          className="col-span-5 place-self-center pl-12 sm:pl-0 mt-8 lg:mt-0 w-full flex justify-center"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}

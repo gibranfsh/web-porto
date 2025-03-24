@@ -226,15 +226,15 @@ const TechStackSection = () => {
   };
 
   return (
-    <section className="mt-24 px-4 sm:px-6 lg:px-8" id="tech_stacks">
-      <div className="mb-16 relative" data-aos="fade-up">
+    <section className="mt-24 px-4 sm:px-6 lg:px-8 overflow-hidden" id="tech_stacks">
+      <div className="mb-16 relative overflow-hidden" data-aos="fade-up">
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-2/3 h-0.5 bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-20"></div>
+          <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-20"></div>
         </div>
         <h2 className="text-center relative z-10">
-          <span className="bg-[#121212] px-6 inline-flex flex-col items-center">
+          <span className="px-6 inline-flex flex-col items-center">
             <span className="text-sm uppercase tracking-widest text-gray-400 font-medium mb-2">What I Work With</span>
-            <span className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white relative">
+            <span className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white relative whitespace-normal">
               Tech <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">Stacks</span> & Tools
               <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-red-600 to-red-400 rounded-full"></span>
             </span>
@@ -243,17 +243,17 @@ const TechStackSection = () => {
       </div>
       
       <div 
-        className="mb-8 overflow-x-auto pb-4 scrollbar-hide" 
+        className="mb-8 overflow-hidden" 
         data-aos="fade-up" 
         data-aos-delay="100"
         ref={containerRef}
       >
-        <div className="flex space-x-3 justify-center min-w-max">
+        <div className="flex flex-wrap justify-center gap-2">
           {categories.map(category => (
             <button
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap ${
+              className={`px-3 py-2 mb-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
                 activeCategory === category.id
                   ? "bg-red-600 text-white"
                   : "bg-gray-800 text-gray-300 hover:bg-gray-700"
@@ -265,9 +265,9 @@ const TechStackSection = () => {
         </div>
       </div>
       
-      <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+      <div className="overflow-hidden" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
         {Object.entries(groupedTechStacks).map(([groupName, techs], groupIndex) => (
-          <div key={groupName} className="mb-16">
+          <div key={groupName} className="mb-16 overflow-hidden">
             <div className="mb-8">
               <div className="flex items-center mb-2" data-aos="fade-up" data-aos-delay={groupIndex * 100}>
                 <div className="h-1 w-6 bg-red-600 rounded mr-3"></div>
@@ -289,7 +289,7 @@ const TechStackSection = () => {
             </div>
             
             <div
-              className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-4 xl:gap-6 justify-items-center"
+              className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-3 xl:gap-6 justify-items-center"
               data-aos="fade-up"
               data-aos-delay={groupIndex * 100 + 100}
             >
@@ -426,7 +426,7 @@ const TechIcon = ({
 
   return (
     <div 
-      className="relative group w-20 h-20 sm:w-24 sm:h-24 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl select-none shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-red-600/20 hover:-translate-y-1 border border-gray-700"
+      className="relative group w-14 h-14 xs:w-16 xs:h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl select-none shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-red-600/20 hover:-translate-y-1 border border-gray-700"
       data-aos="zoom-in"
       data-aos-delay={delay}
     >
