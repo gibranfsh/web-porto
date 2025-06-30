@@ -162,7 +162,7 @@ const HeroSection = () => {
               className="px-6 py-3 w-full sm:w-fit rounded-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-medium flex items-center justify-center gap-2 transition-all duration-300 shadow-lg hover:shadow-red-600/40"
               onClick={() =>
                 window.open(
-                  "https://drive.google.com/file/d/1TYlgwgSVjHXbbzlqERPxDFKXFpb6N7T_/view?usp=sharing",
+                  "https://drive.google.com/file/d/19puE_KSbGYpGbYUjkYDnuvzBW5du9bkM/view?usp=sharing",
                   "_blank"
                 )
               }
