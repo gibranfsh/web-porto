@@ -9,9 +9,32 @@ import {
 } from "@heroicons/react/24/solid";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const HeroSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  // Parallax scroll effects
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"]
+  });
+  
+  // Samurai image moves slower (parallax effect)
+  const samuraiY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const samuraiScale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+  const samuraiOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  
+  // Text moves faster
+  const textY = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  
+  // Floating decorative elements
+  const floatY1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const floatY2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const floatRotate = useTransform(scrollYProgress, [0, 1], [0, 45]);
+
   const glitch: GlitchHandle = useGlitch({
     playMode: "always",
     createContainers: true,
@@ -50,15 +73,35 @@ const HeroSection = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="about"
-      className="min-h-screen flex flex-col justify-center pt-16 pb-8"
+      className="min-h-screen flex flex-col justify-center pt-16 pb-8 relative overflow-hidden"
     >
+      {/* Floating Parallax Decorative Elements */}
+      <motion.div
+        className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-red-600/10 to-transparent rounded-full blur-2xl pointer-events-none"
+        style={{ y: floatY1, rotate: floatRotate }}
+      />
+      <motion.div
+        className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-red-500/15 to-transparent rounded-full blur-xl pointer-events-none"
+        style={{ y: floatY2 }}
+      />
+      <motion.div
+        className="absolute bottom-40 left-1/4 w-16 h-16 border border-red-600/20 rounded-full pointer-events-none"
+        style={{ y: floatY1, rotate: floatRotate }}
+      />
+      <motion.div
+        className="absolute top-1/3 right-10 w-2 h-20 bg-gradient-to-b from-red-600/30 to-transparent rounded-full pointer-events-none"
+        style={{ y: floatY2 }}
+      />
+      
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-8 items-center">
         <motion.div
           className="col-span-7 place-self-center text-center sm:text-left"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          style={{ y: textY, opacity: textOpacity }}
         >
           <div className="inline-block bg-gradient-to-r from-red-600 to-red-400 text-white px-4 py-1 rounded-full text-sm font-medium mb-6">
             Code Wizard & Problem Solver
@@ -128,15 +171,14 @@ const HeroSection = () => {
                   <span className="font-bold relative inline-block px-2 py-1 rounded bg-gradient-to-r from-red-900 to-red-800 mb-1">
                     {" "}
                     <span className="relative z-10">
-                      ACTIVELY LOOKING FOR A JOB!
+                      Lead Fullstack AI Engineer
                     </span>
                     <span className="absolute inset-0 bg-gradient-to-r from-red-500 to-pink-500 rounded opacity-30 animate-pulse blur-[4px]"></span>
                     <span className="absolute -inset-0.5 bg-gradient-to-r from-red-500 to-pink-500 rounded opacity-20 animate-pulse blur-[8px]"></span>
                   </span>
                   <span className="block sm:inline mt-1 sm:mt-0 sm:ml-1">
                     {" "}
-                    - Ready to rock your team and make your company massively
-                    grow!
+                    @ Saakuru Labs & SiloTech.xyz
                   </span>
                 </span>
               </div>
@@ -150,7 +192,7 @@ const HeroSection = () => {
               <div className="flex-1">
                 {" "}
                 <span className="text-white text-sm sm:text-base">
-                  Final Year Information System and Technology @{" "}
+                  Graduated IST Student @{" "}
                   <span className="font-bold">Institut Teknologi Bandung</span>
                 </span>
               </div>
@@ -215,6 +257,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
+          style={{ y: samuraiY, scale: samuraiScale, opacity: samuraiOpacity }}
         >
           <div
             className="w-[250px] h-[250px] lg:w-[400px] lg:h-[400px] relative flex items-center justify-center"

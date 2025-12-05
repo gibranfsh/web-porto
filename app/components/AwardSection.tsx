@@ -13,6 +13,16 @@ interface Award {
 
 const awards: Award[] = [
   {
+    title: "Honorable Mention at Alibaba Cloud GenAI Hackathon 2025 Indonesia",
+    date: "May 2025",
+    description: `• Participated in the Alibaba Cloud GenAI Hackathon 2025 Indonesia, a 24-hour hackathon open-to-public national-scale competition with ~2000 participants, organized by Alibaba Cloud in collaboration with GoTo Group. My team of four secured Honorable Mention (Top 4) out of hundreds of submitted projects.\n
+• Developed GoShield, an AI-powered safety intelligence system for transport rides, focused on a passenger-centered care approach to detect and respond to threats in real time using cloud-based LLM infrastructure.\n
+• Utilized ~99% Alibaba Cloud tech stack, including Qwen Plus (Tongyi Qianwen) for Risk Assessment Agent and Summarizer Agent, STT (Intelligent Speech Interaction), PAI-EAS, PAI-DSW, OSS, ApsaraDB RDS (PostgreSQL), and AnalyticDB.\n
+• Built with modern tech: FastAPI + Python + SSE + LangGraph (backend), and Next.js + Capacitor + TailwindCSS + TypeScript (frontend), deployed using Alibaba ECS.\n
+• Contributed as a brainstormer, fullstack engineer, and cloud system integrator.`,
+    type: "national",
+  },
+  {
     title: "2nd Place Winner at Garuda Hacks 5.0 Hackathon 2024",
     date: "July 2024",
     description: `• Participated in Garuda Hacks 5.0, a 36-hour international hackathon, where my team of four secured 2nd Place out of 105 teams (364 participants) in the "Strongest Together" path. We also received The Wolfram Award (awarded to the top 5 hackathon submissions from all tracks). Participants came from various countries, including the USA, Canada, India, Singapore, United Kingdom, and Indonesia.\n

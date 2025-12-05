@@ -4,6 +4,8 @@ import TechStackSection from "./components/TechStackSection";
 import ProjectSection from "./components/ProjectSection";
 import ExperienceSection from "./components/ExperienceSection";
 import AwardsSection from "./components/AwardSection";
+import ParallaxDivider from "./components/ParallaxDivider";
+import ScrollIndicator from "./components/ScrollIndicator";
 import { FaArrowDownLong } from "react-icons/fa6";
 import { useEffect, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
@@ -97,6 +99,7 @@ const Home = () => {
 
   return (
     <main className="bg-black flex flex-col min-h-screen">
+      <ScrollIndicator />
       <Particles
         id="tsparticles"
         particlesLoaded={particlesLoaded as any}
@@ -107,8 +110,11 @@ const Home = () => {
         <HeroSection />
         <FaArrowDownLong className="text-white text-4xl mx-auto my-32 animate-bounce w-6 h-6" />
         <TechStackSection />
+        <ParallaxDivider variant="geometric" />
         <ProjectSection />
+        <ParallaxDivider variant="gradient" />
         <ExperienceSection />
+        <ParallaxDivider variant="wave" />
         <AwardsSection />
       </div>
     </main>

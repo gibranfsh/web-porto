@@ -1,9 +1,10 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useGlitch, GlitchHandle } from "react-powerglitch";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { 
   ArrowTopRightOnSquareIcon, 
   FolderIcon, 
@@ -245,6 +246,19 @@ const projects: Project[] = [
 ];
 
 const ProjectSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Parallax for background elements
+  const bgY1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const bgY2 = useTransform(scrollYProgress, [0, 1], [50, -150]);
+  const bgRotate = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0.5, 0.5, 0]);
+
   useEffect(() => {
     AOS.init({
       easing: "ease-out-cubic",
@@ -262,7 +276,24 @@ const ProjectSection = () => {
   const regularProjects = filteredProjects.filter(project => !project.featured);
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-gray-950/30 to-transparent" id="projects">
+    <section ref={sectionRef} className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-gray-950/30 to-transparent relative overflow-hidden" id="projects">
+      {/* Parallax Background Elements */}
+      <motion.div
+        className="absolute top-20 left-10 w-64 h-64 bg-gradient-to-br from-red-600/5 to-transparent rounded-full blur-3xl pointer-events-none"
+        style={{ y: bgY1, opacity: bgOpacity }}
+      />
+      <motion.div
+        className="absolute top-1/3 right-0 w-96 h-96 bg-gradient-to-bl from-red-500/5 to-transparent rounded-full blur-3xl pointer-events-none"
+        style={{ y: bgY2, opacity: bgOpacity }}
+      />
+      <motion.div
+        className="absolute bottom-1/4 left-1/4 w-32 h-32 border border-red-600/10 rounded-full pointer-events-none"
+        style={{ y: bgY1, rotate: bgRotate, opacity: bgOpacity }}
+      />
+      <motion.div
+        className="absolute top-1/2 right-1/4 w-20 h-20 border border-red-500/10 rotate-45 pointer-events-none"
+        style={{ y: bgY2, rotate: bgRotate, opacity: bgOpacity }}
+      />
       <div className="max-w-7xl mx-auto">
         {/* Enhanced Header */}
         <div className="text-center relative mb-20" data-aos="fade-up">

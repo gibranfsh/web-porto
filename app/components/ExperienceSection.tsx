@@ -1,8 +1,9 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { BriefcaseIcon, CalendarIcon } from "@heroicons/react/24/outline";
 
 interface Experience {
@@ -15,6 +16,26 @@ interface Experience {
 }
 
 const experiences: Experience[] = [
+  {
+    title: "Lead Full Stack AI Engineer",
+    company: "Saakuru Labs & SiloTech.xyz",
+    location: "Singapore, Singapore",
+    period: "July 2025 - Present",
+    description: [
+      "Lead a team of 3 international software engineers (consisting of mid-level and senior software engineers), providing technical directions.",
+      "Architect and implement scalable AI-agent systems across backend, frontend, and AI integration.",
+      "Drive end-to-end development, from system design to deployment and optimization.",
+      "Ensure reliability, performance, and scalability of AI-driven applications.",
+      "Collaborate cross-functionally to align engineering outcomes with business goals.",
+      "Designed and optimized system prompts and LLM integrations, boosting response accuracy and contextual reliability across AI agents.",
+      "Collaborated on building and scaling agentic AI architectures and memory systems, enabling agents to retain context across sessions and deliver more human-like interactions.",
+      "Developed agent configuration workflows (prompt design, behavioral tuning, accuracy refinement), improving overall agent performance and adaptability.",
+      "Delivered frontend and backend features that made AI capabilities accessible to end users, ensuring seamless product integration.",
+      "Pioneered the company's agentic AI infrastructure, laying the foundation for scalable, production-ready AI solutions.",
+      "Contributed directly to the success of the AI Agents Marketplace ecosystem, accelerating Saakuru Labs', SiloTech.xyz's, and Mind Extension's product innovation and market differentiation."
+    ],
+    logoUrl: "/work_experiences/saakurulabs_logo.jpeg"
+  },
   {
     title: "Software Engineer Intern",
     company: "Grab",
@@ -73,6 +94,17 @@ const experiences: Experience[] = [
 ];
 
 const ExperienceSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  
+  const bgY1 = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const bgY2 = useTransform(scrollYProgress, [0, 1], [40, -120]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0.4, 0.4, 0]);
+
   useEffect(() => {
     AOS.init({
       easing: "ease-out-cubic",
@@ -83,7 +115,16 @@ const ExperienceSection = () => {
   }, []);
 
   return (
-    <section className="mt-24 px-4 sm:px-6 lg:px-8" id="experiences">
+    <section ref={sectionRef} className="mt-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden" id="experiences">
+      {/* Parallax Background Elements */}
+      <motion.div
+        className="absolute top-10 right-10 w-48 h-48 bg-gradient-to-bl from-red-600/5 to-transparent rounded-full blur-3xl pointer-events-none"
+        style={{ y: bgY1, opacity: bgOpacity }}
+      />
+      <motion.div
+        className="absolute bottom-20 left-10 w-72 h-72 bg-gradient-to-tr from-red-500/5 to-transparent rounded-full blur-3xl pointer-events-none"
+        style={{ y: bgY2, opacity: bgOpacity }}
+      />
       <div className="relative mb-16" data-aos="fade-up">
         <div className="flex flex-col items-center">
           <div className="flex items-center mb-2">
