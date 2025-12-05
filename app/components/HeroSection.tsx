@@ -156,44 +156,33 @@ const HeroSection = () => {
             Current Status
           </h2>
 
-          <div className="space-y-4 mb-8">
-            {" "}
-            <div className="w-full flex flex-row items-start sm:items-center justify-start">
-              {" "}
-              <div className="bg-red-600/20 p-2 rounded-full mr-3 flex-none mt-1 sm:mt-0">
-                {" "}
+          <div className="mb-8 w-full flex flex-col items-center sm:items-start gap-4">
+            {/* Job Status */}
+            <div className="inline-flex items-start gap-3">
+              <div className="bg-red-600/20 p-2 rounded-full flex-shrink-0 mt-[2px]">
                 <BriefcaseIcon className="h-5 w-5 text-red-500" />
               </div>
-              <div className="flex-1">
-                {" "}
-                <span className="text-white text-sm sm:text-base block">
-                  {" "}
-                  <span className="font-bold relative inline-block px-2 py-1 rounded bg-gradient-to-r from-red-900 to-red-800 mb-1">
-                    {" "}
-                    <span className="relative z-10">
-                      Lead Fullstack AI Engineer
-                    </span>
-                    <span className="absolute inset-0 bg-gradient-to-r from-red-500 to-pink-500 rounded opacity-30 animate-pulse blur-[4px]"></span>
-                    <span className="absolute -inset-0.5 bg-gradient-to-r from-red-500 to-pink-500 rounded opacity-20 animate-pulse blur-[8px]"></span>
-                  </span>
-                  <span className="block sm:inline mt-1 sm:mt-0 sm:ml-1">
-                    {" "}
-                    @ Saakuru Labs & SiloTech.xyz
-                  </span>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:flex-wrap">
+                <span className="font-bold relative inline-block px-2 py-1 rounded bg-gradient-to-r from-red-900 to-red-800 text-white text-sm sm:text-base whitespace-nowrap">
+                  <span className="relative z-10">Lead Fullstack AI Engineer</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-red-500 to-pink-500 rounded opacity-30 animate-pulse blur-[4px]"></span>
+                  <span className="absolute -inset-0.5 bg-gradient-to-r from-red-500 to-pink-500 rounded opacity-20 animate-pulse blur-[8px]"></span>
+                </span>
+                <span className="text-white text-sm sm:text-base mt-1 sm:mt-0 sm:ml-1">
+                  @ Saakuru Labs & SiloTech.xyz
                 </span>
               </div>
             </div>
-            <div className="w-full flex flex-row items-start sm:items-center justify-start">
-              {" "}
-              <div className="bg-red-600/20 p-2 rounded-full mr-3 flex-none mt-1 sm:mt-0">
-                {" "}
+            
+            {/* Education Status */}
+            <div className="inline-flex items-start gap-3">
+              <div className="bg-red-600/20 p-2 rounded-full flex-shrink-0 mt-[2px]">
                 <AcademicCapIcon className="h-5 w-5 text-red-500" />
               </div>
-              <div className="flex-1">
-                {" "}
-                <span className="text-white text-sm sm:text-base">
-                  Graduated IST Student @{" "}
-                  <span className="font-bold">Institut Teknologi Bandung</span>
+              <div className="flex flex-col sm:flex-row sm:items-center text-white text-sm sm:text-base">
+                <span>Graduated IST Student</span>
+                <span className="mt-1 sm:mt-0 sm:ml-1">
+                  @ <span className="font-bold">Institut Teknologi Bandung</span>
                 </span>
               </div>
             </div>
