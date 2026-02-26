@@ -4,8 +4,7 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { 
   ArrowTopRightOnSquareIcon, 
-  FolderIcon, 
-  StarIcon 
+  FolderIcon
 } from "@heroicons/react/24/outline";
 
 interface Project {
@@ -24,9 +23,15 @@ interface Project {
 const projects: Project[] = [
   {
     name: "Mind Extension - AI-Powered Development Workspace",
-    description: "Built a multi-tenant AI-powered workspace that combines real-time chat, document collaboration, and agent-based automation in a single platform. Engineered a real-time agentic AI interaction system using streaming responses, enabling live agent execution, tool traces, and workspace-aware context. Architected a tenant-isolated backend with PostgreSQL schema-per-organization design and request-scoped execution to enforce strict data separation. Designed an LLM orchestration pipeline with prompt optimization, intelligent context injection, and multi-provider model routing. Implemented automated workspace-to-RAG knowledge synchronization to power retrieval-augmented responses from user documents. Built production-grade billing infrastructure with Stripe subscriptions, credit wallets, and granular per-interaction usage tracking. Delivered cross-platform web and mobile clients with shared authentication, session management, and organization-scoped APIs.",
+    description: "A multi-tenant AI-powered workspace combining real-time chat, document collaboration, and agentic automation. Features streaming AI responses, tenant-isolated PostgreSQL backends, multi-provider LLM orchestration, RAG-powered knowledge retrieval, and Stripe billing infrastructure.",
     imageUrl: "/projects/mindextension.png",
     techStacks: [
+      "Agentic LLM Orchestration",
+      "RAG Pipeline",
+      "SSE Streaming",
+      "OpenAI",
+      "Gemini",
+      "Anthropic",
       "TypeScript",
       "Node.js",
       "Express",
@@ -35,15 +40,8 @@ const projects: Project[] = [
       "React",
       "React Native",
       "Stripe",
-      "Agentic LLM Orchestration",
-      "RAG Pipeline",
-      "SSE Streaming",
-      "OpenAI",
-      "Gemini",
-      "Anthropic",
     ],
     url: "https://mindextension.me",
-    featured: true,
     status: "live",
     type: "Full Stack",
   },
@@ -281,12 +279,8 @@ const ProjectSection = () => {
   const bgRotate = useTransform(scrollYProgress, [0, 1], [0, 90]);
   const bgOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0.5, 0.5, 0]);
 
-  // Show all projects without filtering
+  // Show all projects
   const filteredProjects = projects;
-
-  // Keep featured projects logic
-  const featuredProjects = filteredProjects.filter(project => project.featured);
-  const regularProjects = filteredProjects.filter(project => !project.featured);
 
   return (
     <section ref={sectionRef} className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-gray-950/30 to-transparent relative overflow-hidden" id="projects">
@@ -335,29 +329,9 @@ const ProjectSection = () => {
           </div>
         </div>
         
-        {/* Featured Projects */}
-        {featuredProjects.length > 0 && (
-          <div className="mb-20">
-            <div className="flex items-center justify-center mb-12" data-aos="fade-up">
-              <div className="flex items-center space-x-4">
-                <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-yellow-500"></div>
-                <StarIcon className="h-6 w-6 text-yellow-400" />
-                <h3 className="text-3xl font-bold text-white tracking-wide">Featured Work</h3>
-                <StarIcon className="h-6 w-6 text-yellow-400" />
-                <div className="w-8 h-0.5 bg-gradient-to-l from-transparent to-yellow-500"></div>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-              {featuredProjects.map((project, index) => (
-                <FeaturedProjectCard key={index} project={project} index={index} />
-              ))}
-            </div>
-          </div>
-        )}
-        
-        {/* Regular Projects Grid */}
+        {/* Projects Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-          {regularProjects.map((project, index) => (
+          {filteredProjects.map((project, index) => (
             <ProjectCard key={index} project={project} index={index} />
           ))}
         </div>
@@ -375,145 +349,6 @@ const ProjectSection = () => {
   );
 };
 
-const FeaturedProjectCard = ({ 
-  project, 
-  index 
-}: { 
-  project: Project; 
-  index: number;
-}) => {
-  return (
-    <div
-      className="group relative bg-gradient-to-br from-gray-900/90 via-gray-900 to-black rounded-2xl overflow-hidden shadow-2xl transition-all duration-700 border border-gray-800/50 hover:border-red-500/40 hover:shadow-red-500/20"
-      data-aos="fade-up"
-      data-aos-duration="1000"
-      data-aos-delay={(index + 1) * 150}
-    >
-      {/* Enhanced Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 25% 25%, rgba(239, 68, 68, 0.1) 0%, transparent 25%), 
-                           radial-gradient(circle at 75% 75%, rgba(239, 68, 68, 0.1) 0%, transparent 25%)`
-        }}></div>
-      </div>
-      
-      {/* Image Container */}
-      <div className="relative h-80 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10"></div>
-        <Image
-          src={project.imageUrl}
-          alt={project.name}
-          fill
-          className="object-cover object-top group-hover:object-bottom group-hover:scale-105"
-          style={{ 
-            transition: "all 1.5s cubic-bezier(0.4, 0.0, 0.2, 1)",
-            backfaceVisibility: "hidden",
-            transform: "translateZ(0)"
-          }}
-          loading="lazy"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          quality={80}
-        />
-        {/* Project Type Badge — solid bg instead of backdrop-blur */}
-        <div className="absolute top-4 left-4 z-20">
-          <div className="bg-red-600 rounded-lg px-3 py-1.5">
-            <span className="text-white text-xs font-semibold">
-              {project.type}
-            </span>
-          </div>
-        </div>
-        {/* Tech Stack Overlay — solid bg instead of backdrop-blur */}
-        <div className="absolute top-4 right-4 z-20">
-          <div className="bg-black/80 rounded-lg px-3 py-1.5">
-            <span className="text-red-400 text-xs font-semibold">
-              {project.techStacks.length} Technologies
-            </span>
-          </div>
-        </div>
-      </div>
-      
-      {/* Content Container */}
-      <div className="relative z-20 p-8 space-y-6">
-        {/* Project Title */}
-        <div>
-          <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors duration-300">
-            {project.name}
-          </h3>
-          <div className="w-12 h-0.5 bg-gradient-to-r from-red-500 to-orange-500 rounded-full"></div>
-        </div>
-        
-        {/* Description - Always Fully Visible */}
-        <div className="bg-gray-800/30 rounded-lg p-4 border border-gray-700/50">
-          <p className="text-gray-300 text-sm leading-relaxed">
-            {project.description}
-          </p>
-        </div>
-        
-        {/* Tech Stack */}
-        <div className="space-y-3">
-          <h4 className="text-white font-semibold text-sm uppercase tracking-wide">Tech Stack</h4>
-          <div className="flex flex-wrap gap-2 relative">
-            {project.techStacks.map((tech, i) => (
-              <span
-                key={i}
-                className="bg-gradient-to-r from-red-900/60 to-red-800/60 text-red-100 px-3 py-1.5 rounded-full text-xs font-medium border border-red-700/30 hover:border-red-500/50 transition-colors duration-300"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-        
-        {/* Action Button — CSS hover effect instead of useGlitch */}
-        <div className="pt-4 flex justify-center w-full">
-          {project.status === 'live' ? (
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 px-6 rounded-xl transition-all duration-300 font-semibold text-sm shadow-lg hover:shadow-red-500/25 transform hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 w-full max-w-xs"
-            >
-              <span>View Live Site</span>
-              <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-            </a>
-          ) : project.status === 'archived' ? (
-            <div className="flex flex-col items-center space-y-2 w-full max-w-xs">
-              {project.githubUrl ? (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white py-3 px-6 rounded-xl transition-all duration-300 font-semibold text-sm w-full hover:scale-[1.02] active:scale-95"
-                >
-                  <span>View Source Code</span>
-                  <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-                </a>
-              ) : (
-                <button
-                  disabled
-                  className="inline-flex items-center justify-center space-x-2 bg-gray-600 text-gray-300 py-3 px-6 rounded-xl font-semibold text-sm cursor-not-allowed w-full"
-                >
-                  <span>Deployment Archived</span>
-                  <FolderIcon className="h-4 w-4" />
-                </button>
-              )}
-              <p className="text-gray-500 text-xs text-center">Live demo temporarily unavailable</p>
-            </div>
-          ) : (
-            <button
-              disabled
-              className="inline-flex items-center justify-center space-x-2 bg-gray-700 text-gray-400 py-3 px-6 rounded-xl font-semibold text-sm cursor-not-allowed w-full max-w-xs"
-            >
-              <span>Private Repository</span>
-              <FolderIcon className="h-4 w-4" />
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const ProjectCard = ({
   project,
   index,
@@ -523,7 +358,7 @@ const ProjectCard = ({
 }) => {
   return (
     <div
-      className="group bg-gradient-to-br from-gray-900/95 via-gray-900 to-gray-800 rounded-2xl shadow-xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-600/10 border border-gray-800/60 hover:border-red-600/40"
+      className="group bg-gradient-to-br from-gray-900/95 via-gray-900 to-gray-800 rounded-2xl shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-600/10 border border-gray-800/60 hover:border-red-600/40"
       data-aos="fade-up"
       data-aos-duration="1000"
       data-aos-delay={(index % 3 + 1) * 100}
@@ -536,7 +371,7 @@ const ProjectCard = ({
       </div>
       
       {/* Image Container */}
-      <div className="relative h-56 overflow-hidden">
+      <div className="relative h-56 overflow-hidden rounded-t-2xl">
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60 z-10"></div>
         <Image
           src={project.imageUrl}
@@ -602,7 +437,7 @@ const ProjectCard = ({
                   +{project.techStacks.length - 8} more
                 </span>
                 {/* Tooltip */}
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover/tooltip:opacity-100 transition-opacity duration-300 pointer-events-none z-50">
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 opacity-0 group-hover/tooltip:opacity-100 transition-opacity duration-300 pointer-events-none z-50">
                   <div className="bg-gray-900 border border-gray-700 rounded-lg p-3 shadow-xl min-w-max">
                     <div className="flex flex-wrap gap-1.5 max-w-xs">
                       {project.techStacks.slice(8).map((tech, i) => (
@@ -615,7 +450,7 @@ const ProjectCard = ({
                       ))}
                     </div>
                     {/* Arrow */}
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-700"></div>
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-gray-700"></div>
                   </div>
                 </div>
               </div>
