@@ -23,6 +23,31 @@ interface Project {
 
 const projects: Project[] = [
   {
+    name: "Mind Extension - AI-Powered Development Workspace",
+    description: "Built a multi-tenant AI-powered workspace that combines real-time chat, document collaboration, and agent-based automation in a single platform. Engineered a real-time agentic AI interaction system using streaming responses, enabling live agent execution, tool traces, and workspace-aware context. Architected a tenant-isolated backend with PostgreSQL schema-per-organization design and request-scoped execution to enforce strict data separation. Designed an LLM orchestration pipeline with prompt optimization, intelligent context injection, and multi-provider model routing. Implemented automated workspace-to-RAG knowledge synchronization to power retrieval-augmented responses from user documents. Built production-grade billing infrastructure with Stripe subscriptions, credit wallets, and granular per-interaction usage tracking. Delivered cross-platform web and mobile clients with shared authentication, session management, and organization-scoped APIs.",
+    imageUrl: "/projects/mindextension.png",
+    techStacks: [
+      "TypeScript",
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "Redis",
+      "React",
+      "React Native",
+      "Stripe",
+      "Agentic LLM Orchestration",
+      "RAG Pipeline",
+      "SSE Streaming",
+      "OpenAI",
+      "Gemini",
+      "Anthropic",
+    ],
+    url: "https://mindextension.me",
+    featured: true,
+    status: "live",
+    type: "Full Stack",
+  },
+  {
     name: "ICEE 2025 Main Website",
     description: "The ITB Civil Engineering Expo (ICEE) website featuring registration with GCP integration, Contentful CMS for sponsors/media partners, and comprehensive information sections for this annual engineering event.",
     imageUrl: "/projects/iceeitbfullpage.png",
