@@ -1,8 +1,6 @@
 "use client";
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useState, useMemo, memo } from "react";
 import Image from "next/image";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 type CategoryType = "all" | "languages" | "frontend" | "backend" | "database" | "devops" | "tools" | "aiml";
 
@@ -10,21 +8,115 @@ interface TechStack {
   name: string;
   src: string;
   category: CategoryType[];
+  cdnSlug?: string; // Direct CDN slug to avoid 404 waterfall
 }
+
+// CDN icon mapping — used as primary source for icons not in /public/tech_stacks/
+const iconMap: Record<string, string> = {
+  "C++": "cplusplus",
+  "C#": "csharp",
+  "Python": "python",
+  "Go": "go",
+  "Dart": "dart",
+  "Haskell": "haskell",
+  "Java": "java",
+  "JavaScript": "javascript",
+  "TypeScript": "typescript",
+  "PHP": "php",
+  ".NET Core": "dotnet",
+  "Node.js": "nodedotjs",
+  "Next.js": "nextdotjs",
+  "Express.js": "express",
+  "Vue.js": "vuedotjs",
+  "React.js": "react",
+  "Nest.js": "nestjs",
+  "React Native": "react",
+  "Laravel": "laravel",
+  "CodeIgniter": "codeigniter",
+  "Flutter": "flutter",
+  "Tailwind CSS": "tailwindcss",
+  "GraphQL": "graphql",
+  "Jest": "jest",
+  "TensorFlow": "tensorflow",
+  "Keras": "keras",
+  "tRPC": "trpc",
+  "Inertia.js": "inertiajs",
+  "MySQL": "mysql",
+  "PostgreSQL": "postgresql",
+  "MariaDB": "mariadb",
+  "SQLite": "sqlite",
+  "MS SQL Server": "microsoftsqlserver",
+  "MongoDB": "mongodb",
+  "Redis": "redis",
+  "Supabase": "supabase",
+  "Cockroach DB": "cockroachlabs",
+  "Firebase": "firebase",
+  "AWS": "amazonaws",
+  "GCP": "googlecloud",
+  "Azure": "microsoftazure",
+  "Vercel": "vercel",
+  "Heroku": "heroku",
+  "Netlify": "netlify",
+  "Docker": "docker",
+  "Kubernetes": "kubernetes",
+  "Helm Charts": "helm",
+  "Terraform": "terraform",
+  "Datadog": "datadog",
+  "Apache Kafka": "apachekafka",
+  "Git": "git",
+  "GitHub": "github",
+  "GitLab": "gitlab",
+  "Bitbucket": "bitbucket",
+  "Figma": "figma",
+  "Postman": "postman",
+  "Trello": "trello",
+  "Slack": "slack",
+  "Jupyter Notebook": "jupyter",
+  "GORM": "go",
+  "TypeORM": "typeorm",
+  "Prisma": "prisma",
+  "scikit-learn": "scikitlearn",
+  "DatoCMS": "datocms",
+  "GraphiQL": "graphql",
+  "Gofiber": "go",
+  "Clockify": "clockify",
+  "Filament": "filament",
+  "VS Code": "visualstudiocode",
+  "ChatGPT": "openai",
+  "DeepSeek": "openai",
+  "Claude": "claude",
+  "GitHub Copilot": "githubcopilot",
+  "Cursor": "cursor",
+  "Gemini": "google",
+};
+
+// Set of local files that are known to exist (avoids 404s)
+const localFiles = new Set([
+  "/tech_stacks/python.svg", "/tech_stacks/haskell.svg", "/tech_stacks/c.svg",
+  "/tech_stacks/java.svg", "/tech_stacks/html.svg", "/tech_stacks/css.svg",
+  "/tech_stacks/tailwindcss.svg", "/tech_stacks/javascript.svg", "/tech_stacks/typescript.svg",
+  "/tech_stacks/php.svg", "/tech_stacks/go.svg", "/tech_stacks/graphql.svg",
+  "/tech_stacks/sql.svg", "/tech_stacks/node.svg", "/tech_stacks/express.svg",
+  "/tech_stacks/react.svg", "/tech_stacks/next.svg", "/tech_stacks/vue.svg",
+  "/tech_stacks/codeigniter.svg", "/tech_stacks/laravel.svg", "/tech_stacks/nest.svg",
+  "/tech_stacks/fiber.svg", "/tech_stacks/mysql.svg", "/tech_stacks/postgresql.svg",
+  "/tech_stacks/mariadb.svg", "/tech_stacks/sqlite.svg", "/tech_stacks/mongodb.svg",
+  "/tech_stacks/supabase.svg", "/tech_stacks/cockroachdb1.svg", "/tech_stacks/aws.svg",
+  "/tech_stacks/gcp.svg", "/tech_stacks/azure.svg", "/tech_stacks/firebase.svg",
+  "/tech_stacks/vercel.svg", "/tech_stacks/heroku.svg", "/tech_stacks/netlify.svg",
+  "/tech_stacks/docker.svg", "/tech_stacks/git.svg", "/tech_stacks/github.svg",
+  "/tech_stacks/gitlab.svg", "/tech_stacks/bitbucket.svg", "/tech_stacks/react_native.svg",
+  "/tech_stacks/tensorflow.svg", "/tech_stacks/keras.svg", "/tech_stacks/scikit-learn.svg",
+  "/tech_stacks/jest.svg", "/tech_stacks/postman.svg", "/tech_stacks/figma.svg",
+  "/tech_stacks/trello.svg", "/tech_stacks/slack.svg", "/tech_stacks/cpp.png",
+  "/tech_stacks/csharp.png", "/tech_stacks/gorm.png", "/tech_stacks/msserver.png",
+  "/tech_stacks/inertiajs.png", "/tech_stacks/vscode.png", "/tech_stacks/deepseek.png",
+  "/tech_stacks/cursor.svg",
+]);
 
 const TechStackSection = () => {
   const [activeCategory, setActiveCategory] = useState<CategoryType>("all");
-  const containerRef = useRef<HTMLDivElement>(null);
   
-  useEffect(() => {
-    AOS.init({
-      easing: "ease-out-cubic",
-      once: true,
-      offset: 50,
-      delay: 50,
-    });
-  }, []);
-
   const groupedTechStacks = useMemo(() => {
     if (activeCategory === "all") {
       return {
@@ -246,7 +338,6 @@ const TechStackSection = () => {
         className="mb-8 overflow-hidden" 
         data-aos="fade-up" 
         data-aos-delay="100"
-        ref={containerRef}
       >
         <div className="flex flex-wrap justify-center gap-2">
           {categories.map(category => (
@@ -309,7 +400,8 @@ const TechStackSection = () => {
   );
 };
 
-const TechIcon = ({ 
+// Memoized TechIcon to prevent re-renders when parent state changes
+const TechIcon = memo(({ 
   name, 
   src, 
   delay = 0 
@@ -320,108 +412,26 @@ const TechIcon = ({
 }) => {
   const [imageError, setImageError] = useState(false);
   
-  const getSimpleIconUrl = (techName: string) => {
-    const formattedName = techName.toLowerCase()
-      .replace(/\s+/g, '-')
-      .replace(/\./g, '-')
-      .replace(/\+/g, 'plus')
-      .replace(/#/g, 'sharp');
-    
-    return `https://cdn.simpleicons.org/${formattedName}`;
-  };
-  
-  const iconMap: Record<string, string> = {
-    "C++": "cplusplus",
-    "C#": "csharp",
-    "Python": "python",
-    "Go": "go",
-    "Dart": "dart",
-    "Haskell": "haskell",
-    "Java": "java",
-    "JavaScript": "javascript",
-    "TypeScript": "typescript",
-    "PHP": "php",
-    ".NET Core": "dotnet",
-    "Node.js": "nodedotjs",
-    "Next.js": "nextdotjs",
-    "Express.js": "express",
-    "Vue.js": "vuedotjs",
-    "React.js": "react",
-    "Nest.js": "nestjs",
-    "React Native": "react",
-    "Laravel": "laravel",
-    "CodeIgniter": "codeigniter",
-    "Flutter": "flutter",
-    "Tailwind CSS": "tailwindcss",
-    "GraphQL": "graphql",
-    "Jest": "jest",
-    "TensorFlow": "tensorflow",
-    "Keras": "keras",
-    "tRPC": "trpc",
-    "Inertia.js": "inertiajs",
-    "MySQL": "mysql",
-    "PostgreSQL": "postgresql",
-    "MariaDB": "mariadb",
-    "SQLite": "sqlite",
-    "MS SQL Server": "microsoftsqlserver",
-    "MongoDB": "mongodb",
-    "Redis": "redis",
-    "Supabase": "supabase",
-    "Cockroach DB": "cockroachlabs",
-    "Firebase": "firebase",
-    "AWS": "amazonaws",
-    "GCP": "googlecloud",
-    "Azure": "microsoftazure",
-    "Vercel": "vercel",
-    "Heroku": "heroku",
-    "Netlify": "netlify",
-    "Docker": "docker",
-    "Kubernetes": "kubernetes",
-    "Helm Charts": "helm",
-    "Terraform": "terraform",
-    "Datadog": "datadog",
-    "Apache Kafka": "apachekafka",
-    "Git": "git",
-    "GitHub": "github",
-    "GitLab": "gitlab",
-    "Bitbucket": "bitbucket",
-    "Figma": "figma",
-    "Postman": "postman",
-    "Trello": "trello",
-    "Slack": "slack",
-    "Jupyter Notebook": "jupyter",
-    "GORM": "go",
-    "TypeORM": "typeorm",
-    "Prisma": "prisma",
-    "scikit-learn": "scikitlearn",
-    "DatoCMS": "datocms",
-    "GraphiQL": "graphql",
-    "Gofiber": "go",
-    "Clockify": "clockify",
-    "Filament": "filament",
-    "VS Code": "visualstudiocode",
-    "ChatGPT": "openai",
-    "DeepSeek": "openai",
-    "Claude": "claude",
-    "GitHub Copilot": "githubcopilot",
-    "Cursor": "cursor",
-    "Gemini": "google",
-  };
-  
-  const getCustomIconUrl = (techName: string) => {
-    if (iconMap[techName]) {
-      return `https://cdn.simpleicons.org/${iconMap[techName]}`;
+  // Determine the best source upfront to avoid 404 waterfall
+  const resolvedSrc = useMemo(() => {
+    // If local file is known to exist, use Next.js Image optimization
+    if (localFiles.has(src)) {
+      return { type: 'local' as const, url: src };
     }
-    
-    if (techName.includes("ORM")) {
-      return `https://cdn.simpleicons.org/database`;
+    // Otherwise use CDN directly — skip the 404 attempt
+    const slug = iconMap[name];
+    if (slug) {
+      return { type: 'cdn' as const, url: `https://cdn.simpleicons.org/${slug}` };
     }
-    
-    if (techName.includes("SQL")) {
-      return `https://cdn.simpleicons.org/database`;
-    }
-    
-    return null;
+    // Last resort: try local anyway
+    return { type: 'local' as const, url: src };
+  }, [src, name]);
+
+  const getCdnFallback = () => {
+    const slug = iconMap[name];
+    if (slug) return `https://cdn.simpleicons.org/${slug}`;
+    const formatted = name.toLowerCase().replace(/\s+/g, '-').replace(/\./g, '-').replace(/\+/g, 'plus').replace(/#/g, 'sharp');
+    return `https://cdn.simpleicons.org/${formatted}`;
   };
 
   return (
@@ -431,20 +441,22 @@ const TechIcon = ({
       data-aos-delay={delay}
     >
       <div className="absolute inset-[1px] bg-gray-900 rounded-[10px] flex items-center justify-center overflow-hidden">
-        {!imageError ? (
+        {resolvedSrc.type === 'local' && !imageError ? (
           <Image
-            src={src}
+            src={resolvedSrc.url}
             alt={name}
             className="w-3/5 h-3/5 object-contain transition-transform duration-300 group-hover:scale-110 filter brightness-110 contrast-110"
             width={60}
             height={60}
+            loading="lazy"
             onError={() => setImageError(true)}
           />
         ) : (
           <img
-            src={getCustomIconUrl(name) || getSimpleIconUrl(name)}
+            src={imageError ? getCdnFallback() : resolvedSrc.url}
             alt={name}
             className="w-3/5 h-3/5 object-contain transition-transform duration-300 group-hover:scale-110 filter brightness-110 contrast-110"
+            loading="lazy"
             onError={(e) => {
               e.currentTarget.style.display = "none";
               const container = e.currentTarget.parentElement;
@@ -463,7 +475,9 @@ const TechIcon = ({
       </div>
     </div>
   );
-};
+});
+
+TechIcon.displayName = 'TechIcon';
 
 const techStacks: TechStack[] = [
   { name: "Python", src: "/tech_stacks/python.svg", category: ["languages", "backend"] },

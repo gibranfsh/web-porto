@@ -1,9 +1,6 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import { useGlitch, GlitchHandle } from "react-powerglitch";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { 
   ArrowTopRightOnSquareIcon, 
@@ -253,20 +250,11 @@ const ProjectSection = () => {
     offset: ["start end", "end start"]
   });
   
-  // Parallax for background elements
+  // Consolidated parallax — fewer MotionValues
   const bgY1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const bgY2 = useTransform(scrollYProgress, [0, 1], [50, -150]);
   const bgRotate = useTransform(scrollYProgress, [0, 1], [0, 90]);
   const bgOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0.5, 0.5, 0]);
-
-  useEffect(() => {
-    AOS.init({
-      easing: "ease-out-cubic",
-      once: true,
-      offset: 50,
-      delay: 50,
-    });
-  }, []);
 
   // Show all projects without filtering
   const filteredProjects = projects;
@@ -369,33 +357,6 @@ const FeaturedProjectCard = ({
   project: Project; 
   index: number;
 }) => {
-  const glitch: GlitchHandle = useGlitch({
-    playMode: "hover",
-    createContainers: true,
-    hideOverflow: false,
-    timing: {
-      duration: 300,
-      iterations: 1,
-    },
-    glitchTimeSpan: {
-      start: 0,
-      end: 1,
-    },
-    shake: {
-      velocity: 10,
-      amplitudeX: 0.1,
-      amplitudeY: 0.1,
-    },
-    slice: {
-      count: 8,
-      velocity: 12,
-      minHeight: 0.02,
-      maxHeight: 0.12,
-      hueRotate: true,
-    },
-    pulse: false,
-  });
-
   return (
     <div
       className="group relative bg-gradient-to-br from-gray-900/90 via-gray-900 to-black rounded-2xl overflow-hidden shadow-2xl transition-all duration-700 border border-gray-800/50 hover:border-red-500/40 hover:shadow-red-500/20"
@@ -418,27 +379,27 @@ const FeaturedProjectCard = ({
           src={project.imageUrl}
           alt={project.name}
           fill
-          className="object-cover object-top group-hover:object-bottom group-hover:scale-105 will-change-transform"
+          className="object-cover object-top group-hover:object-bottom group-hover:scale-105"
           style={{ 
             transition: "all 1.5s cubic-bezier(0.4, 0.0, 0.2, 1)",
             backfaceVisibility: "hidden",
             transform: "translateZ(0)"
           }}
-          priority
+          loading="lazy"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          quality={85}
+          quality={80}
         />
-        {/* Project Type Badge */}
+        {/* Project Type Badge — solid bg instead of backdrop-blur */}
         <div className="absolute top-4 left-4 z-20">
-          <div className="bg-red-600/90 backdrop-blur-sm rounded-lg px-3 py-1.5">
+          <div className="bg-red-600 rounded-lg px-3 py-1.5">
             <span className="text-white text-xs font-semibold">
               {project.type}
             </span>
           </div>
         </div>
-        {/* Tech Stack Overlay */}
+        {/* Tech Stack Overlay — solid bg instead of backdrop-blur */}
         <div className="absolute top-4 right-4 z-20">
-          <div className="bg-black/70 backdrop-blur-sm rounded-lg px-3 py-1.5">
+          <div className="bg-black/80 rounded-lg px-3 py-1.5">
             <span className="text-red-400 text-xs font-semibold">
               {project.techStacks.length} Technologies
             </span>
@@ -470,7 +431,7 @@ const FeaturedProjectCard = ({
             {project.techStacks.map((tech, i) => (
               <span
                 key={i}
-                className="bg-gradient-to-r from-red-900/60 to-red-800/60 backdrop-blur-sm text-red-100 px-3 py-1.5 rounded-full text-xs font-medium border border-red-700/30 hover:border-red-500/50 transition-colors duration-300"
+                className="bg-gradient-to-r from-red-900/60 to-red-800/60 text-red-100 px-3 py-1.5 rounded-full text-xs font-medium border border-red-700/30 hover:border-red-500/50 transition-colors duration-300"
               >
                 {tech}
               </span>
@@ -478,15 +439,14 @@ const FeaturedProjectCard = ({
           </div>
         </div>
         
-        {/* Action Button */}
+        {/* Action Button — CSS hover effect instead of useGlitch */}
         <div className="pt-4 flex justify-center w-full">
           {project.status === 'live' ? (
             <a
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 px-6 rounded-xl transition-all duration-300 font-semibold text-sm shadow-lg hover:shadow-red-500/25 transform hover:-translate-y-0.5 w-full max-w-xs"
-              ref={glitch.ref}
+              className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 px-6 rounded-xl transition-all duration-300 font-semibold text-sm shadow-lg hover:shadow-red-500/25 transform hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95 w-full max-w-xs"
             >
               <span>View Live Site</span>
               <ArrowTopRightOnSquareIcon className="h-4 w-4" />
@@ -498,8 +458,7 @@ const FeaturedProjectCard = ({
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white py-3 px-6 rounded-xl transition-all duration-300 font-semibold text-sm w-full"
-                  ref={glitch.ref}
+                  className="inline-flex items-center justify-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white py-3 px-6 rounded-xl transition-all duration-300 font-semibold text-sm w-full hover:scale-[1.02] active:scale-95"
                 >
                   <span>View Source Code</span>
                   <ArrowTopRightOnSquareIcon className="h-4 w-4" />
@@ -537,33 +496,6 @@ const ProjectCard = ({
   project: Project;
   index: number;
 }) => {
-  const glitch: GlitchHandle = useGlitch({
-    playMode: "hover",
-    createContainers: true,
-    hideOverflow: false,
-    timing: {
-      duration: 250,
-      iterations: 1,
-    },
-    glitchTimeSpan: {
-      start: 0,
-      end: 1,
-    },
-    shake: {
-      velocity: 8,
-      amplitudeX: 1,
-      amplitudeY: 1,
-    },
-    slice: {
-      count: 6,
-      velocity: 12,
-      minHeight: 0.02,
-      maxHeight: 0.12,
-      hueRotate: true,
-    },
-    pulse: false,
-  });
-
   return (
     <div
       className="group bg-gradient-to-br from-gray-900/95 via-gray-900 to-gray-800 rounded-2xl shadow-xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-600/10 border border-gray-800/60 hover:border-red-600/40"
@@ -585,18 +517,19 @@ const ProjectCard = ({
           src={project.imageUrl}
           alt={project.name}
           fill
-          className="object-cover object-top group-hover:object-bottom group-hover:scale-110 will-change-transform"
+          className="object-cover object-top group-hover:object-bottom group-hover:scale-110"
           style={{ 
             transition: "all 1.5s cubic-bezier(0.4, 0.0, 0.2, 1)",
             backfaceVisibility: "hidden",
             transform: "translateZ(0)"
           }}
+          loading="lazy"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           quality={80}
         />
-        {/* Project Type Badge */}
+        {/* Project Type Badge — solid bg instead of backdrop-blur */}
         <div className="absolute top-4 left-4 z-20">
-          <div className="bg-red-600/90 backdrop-blur-sm rounded-lg px-3 py-1">
+          <div className="bg-red-600 rounded-lg px-3 py-1">
             <span className="text-white text-xs font-semibold">
               {project.type}
             </span>
@@ -614,7 +547,7 @@ const ProjectCard = ({
           </h3>
         </div>
         
-        {/* Description - Expandable */}
+        {/* Description */}
         <div className="bg-gray-800/40 rounded-lg p-4 border border-gray-700/30">
           <p className="text-gray-300 text-sm leading-relaxed">
             {project.description}
@@ -639,12 +572,12 @@ const ProjectCard = ({
               </span>
             ))}
             {project.techStacks.length > 8 && (
-              <div className="relative group">
+              <div className="relative group/tooltip">
                 <span className="bg-red-900/40 text-red-300 px-2.5 py-1 rounded-lg text-xs font-medium border border-red-700/50 cursor-help">
                   +{project.techStacks.length - 8} more
                 </span>
                 {/* Tooltip */}
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-50">
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover/tooltip:opacity-100 transition-opacity duration-300 pointer-events-none z-50">
                   <div className="bg-gray-900 border border-gray-700 rounded-lg p-3 shadow-xl min-w-max">
                     <div className="flex flex-wrap gap-1.5 max-w-xs">
                       {project.techStacks.slice(8).map((tech, i) => (
@@ -665,15 +598,14 @@ const ProjectCard = ({
           </div>
         </div>
         
-        {/* Action Button */}
+        {/* Action Button — CSS hover effect instead of useGlitch */}
         <div className="pt-2">
           {project.status === 'live' ? (
             <a
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-2.5 px-5 rounded-xl transition-all duration-300 text-sm font-semibold w-full shadow-lg hover:shadow-red-500/20 transform hover:-translate-y-0.5"
-              ref={glitch.ref}
+              className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-2.5 px-5 rounded-xl transition-all duration-300 text-sm font-semibold w-full shadow-lg hover:shadow-red-500/20 transform hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
             >
               <span>View Live Demo</span>
               <ArrowTopRightOnSquareIcon className="h-4 w-4" />
@@ -685,8 +617,7 @@ const ProjectCard = ({
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white py-2.5 px-5 rounded-xl transition-all duration-300 text-sm font-semibold w-full"
-                  ref={glitch.ref}
+                  className="inline-flex items-center justify-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white py-2.5 px-5 rounded-xl transition-all duration-300 text-sm font-semibold w-full hover:scale-[1.02] active:scale-95"
                 >
                   <span>View Source Code</span>
                   <ArrowTopRightOnSquareIcon className="h-4 w-4" />

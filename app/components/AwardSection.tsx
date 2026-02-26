@@ -1,7 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import React, { useState } from "react";
 import { TrophyIcon, CalendarIcon } from "@heroicons/react/24/outline";
 
 interface Award {
@@ -63,15 +61,6 @@ const awards: Award[] = [
 
 const AwardsSection = () => {
   const [filter, setFilter] = useState<"all" | "national" | "international" | "university">("all");
-  
-  useEffect(() => {
-    AOS.init({
-      easing: "ease-out-cubic",
-      once: true,
-      offset: 50,
-      delay: 50,
-    });
-  }, []);
 
   const filteredAwards = filter === "all" 
     ? awards 

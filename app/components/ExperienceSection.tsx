@@ -1,8 +1,6 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { BriefcaseIcon, CalendarIcon } from "@heroicons/react/24/outline";
 
@@ -105,15 +103,6 @@ const ExperienceSection = () => {
   const bgY2 = useTransform(scrollYProgress, [0, 1], [40, -120]);
   const bgOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0.4, 0.4, 0]);
 
-  useEffect(() => {
-    AOS.init({
-      easing: "ease-out-cubic",
-      once: true,
-      offset: 50,
-      delay: 50,
-    });
-  }, []);
-
   return (
     <section ref={sectionRef} className="mt-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden" id="experiences">
       {/* Parallax Background Elements */}
@@ -174,6 +163,7 @@ const ExperienceSection = () => {
                           fill
                           className="object-contain p-1"
                           sizes="48px"
+                          loading="lazy"
                         />
                       ) : (
                         <BriefcaseIcon className="h-6 w-6 text-white" />

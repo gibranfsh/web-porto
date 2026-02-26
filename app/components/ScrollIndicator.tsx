@@ -1,6 +1,6 @@
 "use client";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 
 const sections = [
   { id: "about", label: "ABOUT", num: "01" },
@@ -15,29 +15,42 @@ const ScrollIndicator = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  const rafRef = useRef<number>(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
+    let ticking = false;
 
-      sections.forEach((section, index) => {
-        const element = document.getElementById(section.id);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section.id);
-            setActiveIndex(index);
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        rafRef.current = requestAnimationFrame(() => {
+          const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+          for (let i = sections.length - 1; i >= 0; i--) {
+            const element = document.getElementById(sections[i].id);
+            if (element) {
+              const { offsetTop, offsetHeight } = element;
+              if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                setActiveSection(sections[i].id);
+                setActiveIndex(i);
+                break;
+              }
+            }
           }
-        }
-      });
+          ticking = false;
+        });
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       window.scrollTo({
@@ -45,7 +58,7 @@ const ScrollIndicator = () => {
         behavior: "smooth",
       });
     }
-  };
+  }, []);
 
   return (
     <>
@@ -78,7 +91,7 @@ const ScrollIndicator = () => {
 
           {/* Section Markers */}
           <div className="flex flex-col gap-6">
-            {sections.map((section, index) => (
+            {sections.map((section) => (
               <button
                 key={section.id}
                 onClick={() => scrollToSection(section.id)}
@@ -119,7 +132,7 @@ const ScrollIndicator = () => {
           <div className="absolute -bottom-px -left-px w-2 h-2 border-b border-l border-red-500" />
           <div className="absolute -bottom-px -right-px w-2 h-2 border-b border-r border-red-500" />
           
-          {sections.map((section, index) => (
+          {sections.map((section) => (
             <button
               key={section.id}
               onClick={() => scrollToSection(section.id)}

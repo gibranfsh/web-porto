@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import NavLink from "./NavLink";
 import MenuOverlay from "./MenuOverlay";
@@ -27,36 +27,37 @@ const navLinks = [
     href: "#awards",
     title: "Awards",
   },
-  // {
-  //   href: "/menfess",
-  //   title: "Menfess",
-  // },
 ];
 
 const NavBar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const rafRef = useRef<number>(0);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
+      if (!ticking) {
+        ticking = true;
+        rafRef.current = requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 50);
+          ticking = false;
+        });
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-10 transition-all duration-300 ${
       scrolled 
-        ? "bg-[#121212]/95 backdrop-blur-sm shadow-lg" 
+        ? "bg-[#121212]/95 shadow-lg" 
         : "bg-[#121212]"
     }`}>
       <div className="flex flex-wrap items-center justify-between mx-auto px-4 sm:px-8 lg:px-32 py-4">
