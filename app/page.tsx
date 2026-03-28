@@ -33,9 +33,14 @@ const Home = () => {
 
   useEffect(() => {
     // Defer particles initialization to after first paint
-    const timer = requestIdleCallback ? 
-      requestIdleCallback(initParticles) : 
-      setTimeout(initParticles, 100);
+    let idleCallbackId: number | null = null;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    if (typeof window !== "undefined" && typeof window.requestIdleCallback === "function") {
+      idleCallbackId = window.requestIdleCallback(initParticles);
+    } else {
+      timeoutId = setTimeout(initParticles, 100);
+    }
     
     async function initParticles() {
       const { initParticlesEngine } = await import("@tsparticles/react");
@@ -47,7 +52,12 @@ const Home = () => {
     }
 
     return () => {
-      if (typeof timer === 'number') clearTimeout(timer);
+      if (idleCallbackId !== null && typeof window.cancelIdleCallback === "function") {
+        window.cancelIdleCallback(idleCallbackId);
+      }
+      if (timeoutId !== null) {
+        clearTimeout(timeoutId);
+      }
     };
   }, []);
 
