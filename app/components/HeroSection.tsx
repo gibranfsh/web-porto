@@ -11,8 +11,11 @@ import CurrentStatus from "./CurrentStatus";
 import HeroSamurai from "./HeroSamurai";
 import Button from "./ui/Button";
 import Badge from "./ui/Badge";
+import VisitorTracker from "./visitors/VisitorTracker";
+import HeroVisitorPanel from "./visitors/HeroVisitorPanel";
 import { useMediaQuery, usePrefersReducedMotion } from "../hooks/useMediaQuery";
 import { useGlitchBurst } from "../hooks/useGlitchBurst";
+import { useVisitorStats } from "../hooks/useVisitorStats";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -52,6 +55,7 @@ const HeroSection = () => {
   };
 
   const applyTextParallax = isDesktop && !reducedMotion;
+  const { stats, loading, refetch } = useVisitorStats();
 
   return (
     <section
@@ -135,87 +139,99 @@ const HeroSection = () => {
             </motion.div>
 
             <div className="w-full text-left flex flex-col gap-5 sm:gap-6">
-            <TerminalIntro />
-            <div className="w-full">
-              <h2 className="font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400 text-xl sm:text-2xl mb-3 text-left">
-                Current Status
-              </h2>
-              <CurrentStatus />
-            </div>
+              <VisitorTracker onRecorded={refetch} />
+              <TerminalIntro />
+              <div className="w-full">
+                <h2 className="font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400 text-xl sm:text-2xl mb-3 text-left">
+                  Current Status
+                </h2>
+                <CurrentStatus />
+              </div>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-4">
-              <Button
-                variant="primary"
-                className="w-full sm:w-fit"
-                onClick={() =>
-                  window.open(
-                    "https://drive.google.com/file/d/19puE_KSbGYpGbYUjkYDnuvzBW5du9bkM/view?usp=sharing",
-                    "_blank"
-                  )
-                }
-              >
-                View Resume
-              </Button>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-4">
+                <Button
+                  variant="primary"
+                  className="w-full sm:w-fit"
+                  onClick={() =>
+                    window.open(
+                      "https://drive.google.com/file/d/19puE_KSbGYpGbYUjkYDnuvzBW5du9bkM/view?usp=sharing",
+                      "_blank"
+                    )
+                  }
+                >
+                  View Resume
+                </Button>
 
-              <Button
-                variant="secondary"
-                className="w-full sm:w-fit group"
-                onClick={() => scrollToSection("projects")}
-              >
-                View Projects
-                <ArrowDownIcon className="h-4 w-4 motion-safe:group-hover:translate-y-1 transition-transform" />
-              </Button>
-            </div>
+                <Button
+                  variant="secondary"
+                  className="w-full sm:w-fit group"
+                  onClick={() => scrollToSection("projects")}
+                >
+                  View Projects
+                  <ArrowDownIcon className="h-4 w-4 motion-safe:group-hover:translate-y-1 transition-transform" />
+                </Button>
+              </div>
 
-            <div className="flex items-center justify-center sm:justify-start gap-5 w-full">
-              <Link
-                href="https://github.com/gibranfsh"
-                className="text-gray-400 hover:text-red-400 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 rounded"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub Profile"
-              >
-                <FaGithub className="h-6 w-6" />
-              </Link>
-              <Link
-                href="https://www.linkedin.com/in/gibran-fasha-ghazanfar"
-                className="text-gray-400 hover:text-red-400 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 rounded"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn Profile"
-              >
-                <FaLinkedin className="h-6 w-6" />
-              </Link>
-              <Link
-                href="https://www.instagram.com/gibranfg"
-                className="text-gray-400 hover:text-red-400 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 rounded"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram Profile"
-              >
-                <FaInstagram className="h-6 w-6" />
-              </Link>
-            </div>
+              <div className="flex items-center justify-center sm:justify-start gap-5 w-full">
+                <Link
+                  href="https://github.com/gibranfsh"
+                  className="text-gray-400 hover:text-red-400 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 rounded"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub Profile"
+                >
+                  <FaGithub className="h-6 w-6" />
+                </Link>
+                <Link
+                  href="https://www.linkedin.com/in/gibran-fasha-ghazanfar"
+                  className="text-gray-400 hover:text-red-400 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 rounded"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn Profile"
+                >
+                  <FaLinkedin className="h-6 w-6" />
+                </Link>
+                <Link
+                  href="https://www.instagram.com/gibranfg"
+                  className="text-gray-400 hover:text-red-400 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 rounded"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram Profile"
+                >
+                  <FaInstagram className="h-6 w-6" />
+                </Link>
+              </div>
+
+              <div className="lg:hidden w-full">
+                <HeroVisitorPanel stats={stats} loading={loading} />
+              </div>
             </div>
           </div>
         </motion.div>
 
         <motion.div
-          className="hidden lg:flex lg:col-span-5 place-self-center w-full justify-center"
+          className="hidden lg:flex lg:col-span-5 w-full"
           initial={reducedMotion ? false : { opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          style={
-            reducedMotion
-              ? undefined
-              : {
-                  y: samuraiYDesktop,
-                  scale: samuraiScale,
-                  opacity: textOpacity,
-                }
-          }
         >
-          <HeroSamurai variant="desktop" isGlitching={isGlitching} />
+          <div className="hero-visual-stack">
+            <motion.div
+              className="hero-samurai-slot"
+              style={
+                reducedMotion
+                  ? undefined
+                  : {
+                      y: samuraiYDesktop,
+                      scale: samuraiScale,
+                      opacity: textOpacity,
+                    }
+              }
+            >
+              <HeroSamurai variant="desktop" isGlitching={isGlitching} />
+            </motion.div>
+            <HeroVisitorPanel stats={stats} loading={loading} />
+          </div>
         </motion.div>
       </div>
     </section>
