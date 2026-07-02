@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useMemo, memo } from "react";
 import Image from "next/image";
+import FilterButton, { FilterButtonGroup } from "./ui/FilterButton";
 
 type CategoryType = "all" | "languages" | "frontend" | "backend" | "database" | "devops" | "tools" | "aiml";
 
@@ -339,21 +340,17 @@ const TechStackSection = () => {
         data-aos="fade-up" 
         data-aos-delay="100"
       >
-        <div className="flex flex-wrap justify-center gap-2">
-          {categories.map(category => (
-            <button
+        <FilterButtonGroup className="mb-2">
+          {categories.map((category) => (
+            <FilterButton
               key={category.id}
+              selected={activeCategory === category.id}
               onClick={() => setActiveCategory(category.id)}
-              className={`px-3 py-2 mb-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
-                activeCategory === category.id
-                  ? "bg-red-600 text-white"
-                  : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-              }`}
             >
               {category.name}
-            </button>
+            </FilterButton>
           ))}
-        </div>
+        </FilterButtonGroup>
       </div>
       
       <div className="overflow-hidden" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">

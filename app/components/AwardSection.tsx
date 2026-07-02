@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { TrophyIcon, CalendarIcon } from "@heroicons/react/24/outline";
+import FilterButton, { FilterButtonGroup } from "./ui/FilterButton";
 
 interface Award {
   title: string;
@@ -59,8 +60,17 @@ const awards: Award[] = [
   },
 ];
 
+const filters = [
+  { id: "all", label: "All" },
+  { id: "national", label: "National" },
+  { id: "international", label: "International" },
+  { id: "university", label: "University" },
+] as const;
+
+type FilterType = (typeof filters)[number]["id"];
+
 const AwardsSection = () => {
-  const [filter, setFilter] = useState<"all" | "national" | "international" | "university">("all");
+  const [filter, setFilter] = useState<FilterType>("all");
 
   const filteredAwards = filter === "all" 
     ? awards 
@@ -83,48 +93,17 @@ const AwardsSection = () => {
         </div>
       </div>
       
-      <div className="flex flex-wrap justify-center gap-4 mb-8" data-aos="fade-up">
-        <button 
-          onClick={() => setFilter("all")}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-            filter === "all" 
-              ? "bg-red-600 text-white" 
-              : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-          }`}
-        >
-          All
-        </button>
-        <button 
-          onClick={() => setFilter("national")}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-            filter === "national" 
-              ? "bg-red-600 text-white" 
-              : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-          }`}
-        >
-          National
-        </button>
-        <button 
-          onClick={() => setFilter("international")}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-            filter === "international" 
-              ? "bg-red-600 text-white" 
-              : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-          }`}
-        >
-          International
-        </button>
-        <button 
-          onClick={() => setFilter("university")}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-            filter === "university" 
-              ? "bg-red-600 text-white" 
-              : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-          }`}
-        >
-          University
-        </button>
-      </div>
+      <FilterButtonGroup className="mb-8" data-aos="fade-up">
+        {filters.map(({ id, label }) => (
+          <FilterButton
+            key={id}
+            selected={filter === id}
+            onClick={() => setFilter(id)}
+          >
+            {label}
+          </FilterButton>
+        ))}
+      </FilterButtonGroup>
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filteredAwards.map((award, index) => (
