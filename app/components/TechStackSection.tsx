@@ -318,7 +318,7 @@ const TechStackSection = () => {
   };
 
   return (
-    <section className="mt-24 px-4 sm:px-6 lg:px-8 overflow-hidden" id="tech_stacks">
+    <section className="mt-24 px-4 sm:px-6 lg:px-8 overflow-hidden scroll-mt-[var(--nav-height)]" id="tech_stacks">
       <div className="mb-16 relative overflow-hidden" data-aos="fade-up">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-20"></div>

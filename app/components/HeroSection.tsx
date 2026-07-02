@@ -31,7 +31,6 @@ const HeroSection = () => {
   const samuraiYDesktop = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const samuraiScale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
 
-  const textY = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const textOpacity = useTransform(
     scrollYProgress,
     [0, 0.6],
@@ -46,7 +45,7 @@ const HeroSection = () => {
     const section = document.getElementById(sectionId);
     if (section) {
       window.scrollTo({
-        top: section.offsetTop - 80,
+        top: section.offsetTop - 136,
         behavior: reducedMotion ? "auto" : "smooth",
       });
     }
@@ -58,7 +57,7 @@ const HeroSection = () => {
     <section
       ref={sectionRef}
       id="about"
-      className="min-h-0 lg:min-h-screen flex flex-col lg:justify-center px-4 sm:px-6 lg:px-8 pt-24 pb-16 relative overflow-hidden"
+      className="min-h-0 lg:min-h-screen flex flex-col justify-start px-4 sm:px-6 lg:px-8 pt-[var(--nav-height)] pb-16 relative overflow-hidden scroll-mt-[var(--nav-height)]"
     >
       {!reducedMotion && (
         <>
@@ -88,10 +87,9 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           style={
-            reducedMotion
+            reducedMotion || !applyTextParallax
               ? undefined
               : {
-                  y: applyTextParallax ? textY : undefined,
                   opacity: textOpacity,
                 }
           }

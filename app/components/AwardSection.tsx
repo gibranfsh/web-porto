@@ -67,7 +67,7 @@ const AwardsSection = () => {
     : awards.filter(award => award.type === filter);
 
   return (
-    <section className="mt-24 px-4 sm:px-6 lg:px-8 overflow-hidden" id="awards">
+    <section className="mt-24 px-4 sm:px-6 lg:px-8 overflow-hidden scroll-mt-[var(--nav-height)]" id="awards">
       <div className="text-center mb-16 relative overflow-hidden" data-aos="fade-up">
         <div className="absolute top-1/2 left-0 right-0 transform -translate-y-1/2 overflow-hidden">
           <div className="flex justify-center">

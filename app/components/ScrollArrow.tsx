@@ -10,7 +10,7 @@ export default function ScrollArrow() {
     const section = document.getElementById("tech_stacks");
     if (section) {
       window.scrollTo({
-        top: section.offsetTop - 80,
+        top: section.offsetTop - 136,
         behavior: reducedMotion ? "auto" : "smooth",
       });
     }

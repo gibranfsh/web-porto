@@ -36,7 +36,7 @@ const NavLink = ({ href, title }: { href: string; title: string }) => {
       const section = document.querySelector(href);
       if (section) {
         window.scrollTo({
-          top: section.getBoundingClientRect().top + window.pageYOffset - 80,
+          top: section.getBoundingClientRect().top + window.pageYOffset - 136,
           behavior: 'smooth'
         });
       }

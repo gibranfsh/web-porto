@@ -6,6 +6,11 @@
 html {
   overscroll-behavior: none;
   scroll-behavior: smooth;
+  scroll-padding-top: 8.5rem;
+}
+
+:root {
+  --nav-height: 8.5rem;
 }
 
 body {
