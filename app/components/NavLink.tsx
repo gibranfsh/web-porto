@@ -1,45 +1,33 @@
 "use client";
-import { useState, useEffect } from "react";
-import Link from "next/link";
 
-const NavLink = ({ href, title }: { href: string; title: string }) => {
-  const [isActive, setIsActive] = useState(false);
-  
-  useEffect(() => {
-    const checkActive = () => {
-      if (href.startsWith('#')) {
-        const section = document.querySelector(href);
-        if (section) {
-          const rect = section.getBoundingClientRect();
-          const isInView = (
-            rect.top <= 100 && 
-            rect.bottom >= 100
-          );
-          setIsActive(isInView);
-        }
-      } else {
-        setIsActive(window.location.pathname === href);
-      }
-    };
-    
-    checkActive();
-    window.addEventListener('scroll', checkActive);
-    
-    return () => {
-      window.removeEventListener('scroll', checkActive);
-    };
-  }, [href]);
-  
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (href.startsWith('#')) {
+import Link from "next/link";
+import type { MouseEvent } from "react";
+import type { NavIcon } from "./navLinks";
+import { NAV_SCROLL_OFFSET } from "../hooks/useActiveSection";
+
+type NavLinkProps = {
+  readonly href: string;
+  readonly title: string;
+  readonly icon: NavIcon;
+  readonly isActive: boolean;
+  readonly onNavigate?: () => void;
+};
+
+const NavLink = ({ href, title, icon: Icon, isActive, onNavigate }: NavLinkProps) => {
+  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (href.startsWith("#")) {
       e.preventDefault();
       const section = document.querySelector(href);
       if (section) {
         window.scrollTo({
-          top: section.getBoundingClientRect().top + window.pageYOffset - 136,
-          behavior: 'smooth'
+          top:
+            section.getBoundingClientRect().top +
+            window.pageYOffset -
+            NAV_SCROLL_OFFSET,
+          behavior: "smooth",
         });
       }
+      onNavigate?.();
     }
   };
 
@@ -47,23 +35,12 @@ const NavLink = ({ href, title }: { href: string; title: string }) => {
     <Link
       href={href}
       onClick={handleClick}
-      className={`
-        relative block py-2 pl-3 pr-4 text-lg rounded lg:p-0 
-        transition-all duration-300 ease-in-out
-        ${isActive 
-          ? "text-red-500 font-medium" 
-          : "text-[#ADB7BE] hover:text-white"
-        }
-      `}
+      data-active={isActive}
+      aria-current={isActive ? "page" : undefined}
+      className="nav-link-cyber"
     >
+      <Icon className="nav-link-icon" aria-hidden="true" />
       {title}
-      <span 
-        className={`
-          absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 
-          transition-all duration-300 ease-out
-          ${isActive ? "w-full" : ""}
-        `}
-      />
     </Link>
   );
 };

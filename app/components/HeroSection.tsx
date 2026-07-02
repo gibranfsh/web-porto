@@ -45,7 +45,7 @@ const HeroSection = () => {
     const section = document.getElementById(sectionId);
     if (section) {
       window.scrollTo({
-        top: section.offsetTop - 136,
+        top: section.offsetTop - 148,
         behavior: reducedMotion ? "auto" : "smooth",
       });
     }

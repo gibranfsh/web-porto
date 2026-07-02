@@ -54,7 +54,7 @@ const ScrollIndicator = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       window.scrollTo({
-        top: element.offsetTop - 136,
+        top: element.offsetTop - 148,
         behavior: "smooth",
       });
     }

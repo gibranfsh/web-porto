@@ -1,38 +1,19 @@
 "use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import NavLink from "./NavLink";
 import MenuOverlay from "./MenuOverlay";
 import Image from "next/image";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
-
-const navLinks = [
-  {
-    href: "#about",
-    title: "About Me",
-  },
-  {
-    href: "#tech_stacks",
-    title: "Tech Stacks",
-  },
-  {
-    href: "#projects",
-    title: "Projects",
-  },
-  {
-    href: "#experiences",
-    title: "Experiences",
-  },
-  {
-    href: "#awards",
-    title: "Awards",
-  },
-];
+import { navLinks, navSectionIds } from "./navLinks";
+import { useActiveSection } from "../hooks/useActiveSection";
 
 const NavBar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const rafRef = useRef<number>(0);
+  const activeSection = useActiveSection(navSectionIds);
 
   useEffect(() => {
     let ticking = false;
@@ -54,59 +35,78 @@ const NavBar = () => {
     };
   }, []);
 
+  const closeMenu = () => setNavbarOpen(false);
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled 
-        ? "bg-[#121212]/95 shadow-lg" 
-        : "bg-[#121212]"
-    }`}>
-      <div className="flex flex-wrap items-center justify-between mx-auto px-4 sm:px-8 lg:px-32 py-4">
-        <Link href={"/"} className="text-5xl text-white font-semibold flex items-center">
-          <Image
-            src="/images/gijax_logo.png"
-            className="cursor-pointer w-24 lg:w-[150px] transition-all duration-300 hover:scale-105"
-            alt="navbar-logo"
-            width={150}
-            height={150}
-            priority
-          />
-        </Link>
-        
-        <div className="mobile-menu block md:hidden">
-          <button
-            onClick={() => setNavbarOpen(!navbarOpen)}
-            className="flex items-center px-3 py-2 border rounded border-slate-200 text-slate-200 hover:text-white hover:border-white transition-colors"
-            aria-label={navbarOpen ? "Close Menu" : "Open Menu"}
-          >
-            {navbarOpen ? (
-              <XMarkIcon className="h-5 w-5" />
-            ) : (
-              <Bars3Icon className="h-5 w-5" />
-            )}
-          </button>
-        </div>
-        
-        <div className="menu hidden md:block md:w-auto" id="navbar">
-          <ul className="flex p-4 md:p-0 md:flex-row md:space-x-8 mt-0">
-            {navLinks.map((navLink, index) => (
-              <li key={index}>
-                <NavLink href={navLink.href} title={navLink.title} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      
-      <div 
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          navbarOpen 
-            ? "max-h-[400px] opacity-100" 
-            : "max-h-0 opacity-0"
-        }`}
+    <div className="fixed top-3 left-4 right-4 sm:left-6 sm:right-6 lg:left-8 lg:right-8 z-50">
+      <nav
+        className={`nav-cyber ${scrolled ? "nav-cyber-scrolled" : ""}`}
+        aria-label="Main navigation"
       >
-        {navbarOpen && <MenuOverlay links={navLinks} />}
-      </div>
-    </nav>
+        <div className="relative z-10 flex flex-wrap items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 py-2.5 sm:py-3">
+          <Link
+            href="/"
+            className="nav-logo-glow flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 rounded-sm"
+          >
+            <Image
+              src="/images/gijax_logo.png"
+              className="cursor-pointer w-20 sm:w-24 lg:w-[130px] h-auto"
+              alt="Gibran Fasha Ghazanfar logo"
+              width={150}
+              height={150}
+              priority
+            />
+          </Link>
+
+          <div className="block md:hidden">
+            <button
+              type="button"
+              onClick={() => setNavbarOpen(!navbarOpen)}
+              className="btn-cyber btn-cyber-secondary px-3 py-2 min-h-[40px] min-w-[40px]"
+              aria-label={navbarOpen ? "Close menu" : "Open menu"}
+              aria-expanded={navbarOpen}
+            >
+              <span className="btn-cyber-label">
+                {navbarOpen ? (
+                  <XMarkIcon className="h-5 w-5" />
+                ) : (
+                  <Bars3Icon className="h-5 w-5" />
+                )}
+              </span>
+            </button>
+          </div>
+
+          <div className="hidden md:block md:w-auto" id="navbar">
+            <ul className="flex flex-row items-center gap-1 lg:gap-2">
+              {navLinks.map((navLink) => (
+                <li key={navLink.href}>
+                  <NavLink
+                    href={navLink.href}
+                    title={navLink.title}
+                    icon={navLink.icon}
+                    isActive={activeSection === navLink.sectionId}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div
+          className={`md:hidden nav-cyber-dropdown overflow-hidden transition-all duration-300 ease-in-out ${
+            navbarOpen ? "max-h-[420px] opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          {navbarOpen && (
+            <MenuOverlay
+              links={navLinks}
+              activeSection={activeSection}
+              onNavigate={closeMenu}
+            />
+          )}
+        </div>
+      </nav>
+    </div>
   );
 };
 

@@ -249,28 +249,50 @@ export default function TerminalIntro() {
         ref={bodyRef}
         className="terminal-body relative p-2.5 sm:p-4 overflow-x-hidden terminal-scanlines-hacker font-mono text-[9px] leading-[1.35] sm:text-sm sm:leading-[1.35]"
       >
-        {visibleLines.map((line, index) => (
-          <div
-            key={`${line.kind}-${index}-${line.text}`}
-            className={`terminal-line ${lineClassName(line.kind)}`}
-          >
-            {line.visibleText}
-            {line.isActive ? (
-              <span className="terminal-cursor text-red-500">█</span>
-            ) : null}
+        <div
+          aria-hidden="true"
+          className="invisible pointer-events-none select-none"
+        >
+          {steps.map((step, index) => (
+            <div
+              key={`sizer-${step.kind}-${index}-${step.text}`}
+              className={`terminal-line ${lineClassName(step.kind)}`}
+            >
+              {step.text}
+            </div>
+          ))}
+          <div className={`terminal-line ${lineClassName("prompt")}`}>
+            {idlePrompt}
           </div>
-        ))}
-        {done ? (
-          <>
-            <div className={`terminal-line ${lineClassName("prompt")}`}>
-              {idlePrompt}
-              <span className="terminal-cursor text-red-500">█</span>
+          <div className={`terminal-line ${lineClassName("comment")}`}>
+            {"// session ready"}
+          </div>
+        </div>
+
+        <div className="absolute inset-0 p-2.5 sm:p-4 overflow-x-hidden">
+          {visibleLines.map((line, index) => (
+            <div
+              key={`${line.kind}-${index}-${line.text}`}
+              className={`terminal-line ${lineClassName(line.kind)}`}
+            >
+              {line.visibleText}
+              {line.isActive ? (
+                <span className="terminal-cursor text-red-500">█</span>
+              ) : null}
             </div>
-            <div className={`terminal-line ${lineClassName("comment")}`}>
-              {"// session ready"}
-            </div>
-          </>
-        ) : null}
+          ))}
+          {done ? (
+            <>
+              <div className={`terminal-line ${lineClassName("prompt")}`}>
+                {idlePrompt}
+                <span className="terminal-cursor text-red-500">█</span>
+              </div>
+              <div className={`terminal-line ${lineClassName("comment")}`}>
+                {"// session ready"}
+              </div>
+            </>
+          ) : null}
+        </div>
       </div>
     </div>
   );
