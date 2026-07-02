@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, Space_Grotesk } from "next/font/google";
+import { Archivo, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -16,6 +16,12 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Gibran Fasha Ghazanfar",
   description: "Gibran Fasha Ghazanfar's Personal and Portfolio website",
@@ -29,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${archivo.variable} ${spaceGrotesk.variable} font-body antialiased`}
+        className={`${archivo.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-body antialiased`}
       >
         <NavBar />
         {children}

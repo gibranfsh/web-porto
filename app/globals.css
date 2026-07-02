@@ -35,9 +35,359 @@ body {
 }
 
 /* Fix for TypeAnimation component */
-span[style*="max-content"] {
-  max-width: 90vw !important;
-  overflow-wrap: break-word !important;
+.hero-type-animation {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+@media (max-width: 639px) {
+  .hero-type-animation {
+    white-space: normal !important;
+    word-break: break-word;
+  }
+}
+
+@media (min-width: 640px) {
+  .hero-type-animation {
+    text-align: left;
+    white-space: nowrap;
+  }
+}
+
+/* Terminal */
+.terminal-hacker {
+  border: 1px solid rgba(220, 38, 38, 0.4);
+  border-radius: 0.125rem;
+  background: rgba(0, 0, 0, 0.95);
+  box-shadow:
+    0 0 20px rgba(220, 38, 38, 0.15),
+    inset 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.terminal-prompt-glow {
+  text-shadow: 0 0 6px rgba(220, 38, 38, 0.45);
+}
+
+.terminal-scanlines-hacker {
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(220, 38, 38, 0.04) 0px,
+    rgba(220, 38, 38, 0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+.terminal-scanlines {
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.12) 0px,
+    rgba(0, 0, 0, 0.12) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+.terminal-body {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  letter-spacing: 0;
+  font-variant-ligatures: none;
+  font-feature-settings: normal;
+  tab-size: 2;
+}
+
+.terminal-line {
+  display: block;
+  white-space: pre;
+  min-height: 1.35em;
+}
+
+.terminal-cursor {
+  animation: terminal-blink 1s step-end infinite;
+}
+
+@keyframes terminal-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Cyberpunk glitch */
+.cyberpunk-glitch {
+  isolation: isolate;
+}
+
+.glitch-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glitch-layer-base {
+  position: relative;
+  z-index: 3;
+}
+
+.glitch-layer-red {
+  z-index: 1;
+  opacity: 0;
+  mix-blend-mode: screen;
+  filter: drop-shadow(-12px 0 #ef4444);
+  transform: translateX(-12px);
+}
+
+.glitch-layer-crimson {
+  z-index: 2;
+  opacity: 0;
+  mix-blend-mode: screen;
+  filter: drop-shadow(12px 0 #7f1d1d);
+  transform: translateX(12px);
+}
+
+.cyberpunk-glitch[data-glitching="true"] .glitch-layer-red,
+.cyberpunk-glitch[data-glitching="true"] .glitch-layer-crimson {
+  opacity: 0.9;
+}
+
+.cyberpunk-glitch[data-severity="catastrophic"][data-glitching="true"] .glitch-layer-red,
+.cyberpunk-glitch[data-severity="catastrophic"][data-glitching="true"] .glitch-layer-crimson {
+  animation: glitch-catastrophic-rgb 0.12s steps(4) infinite;
+}
+
+.cyberpunk-glitch[data-severity="normal"][data-glitching="true"] .glitch-layer-red,
+.cyberpunk-glitch[data-severity="normal"][data-glitching="true"] .glitch-layer-crimson {
+  animation: glitch-rgb 0.25s steps(2) infinite;
+}
+
+.cyberpunk-glitch[data-glitching="true"] .glitch-layer-base {
+  animation: glitch-skew 0.25s steps(2) infinite;
+}
+
+.cyberpunk-glitch[data-severity="catastrophic"][data-glitching="true"] .glitch-layer-base {
+  animation: glitch-catastrophic-slice 0.15s steps(4) infinite;
+}
+
+.glitch-scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  opacity: 0.08;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+.cyberpunk-glitch[data-severity="catastrophic"][data-glitching="true"] .glitch-scanlines {
+  opacity: 0.25;
+  animation: glitch-flicker 0.08s steps(3) infinite;
+}
+
+.glitch-noise {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  opacity: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+.cyberpunk-glitch[data-severity="catastrophic"][data-glitching="true"] .glitch-noise {
+  opacity: 0.15;
+  animation: glitch-flash 0.1s steps(2) infinite;
+}
+
+.glitch-tear {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  height: 8px;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(220, 38, 38, 0.45);
+  mix-blend-mode: screen;
+}
+
+.cyberpunk-glitch[data-severity="catastrophic"][data-glitching="true"] .glitch-tear-1 {
+  top: 18%;
+  height: 10px;
+  opacity: 1;
+  animation: glitch-tear 0.15s steps(4) infinite;
+}
+
+.cyberpunk-glitch[data-severity="catastrophic"][data-glitching="true"] .glitch-tear-2 {
+  top: 42%;
+  height: 6px;
+  opacity: 1;
+  animation: glitch-tear 0.12s steps(3) infinite reverse;
+}
+
+.cyberpunk-glitch[data-severity="catastrophic"][data-glitching="true"] .glitch-tear-3 {
+  top: 68%;
+  height: 12px;
+  opacity: 1;
+  animation: glitch-tear 0.18s steps(5) infinite;
+}
+
+.cyberpunk-glitch[data-severity="catastrophic"][data-glitching="true"] .glitch-tear-4 {
+  top: 85%;
+  height: 5px;
+  opacity: 1;
+  animation: glitch-tear 0.1s steps(3) infinite reverse;
+}
+
+.cyberpunk-glitch[data-severity="normal"][data-glitching="true"] .glitch-tear-1 {
+  top: 28%;
+  height: 4px;
+  opacity: 1;
+  animation: glitch-tear 0.2s steps(3) infinite;
+}
+
+.cyberpunk-glitch[data-severity="normal"][data-glitching="true"] .glitch-tear-2 {
+  top: 62%;
+  height: 4px;
+  opacity: 1;
+  animation: glitch-tear 0.2s steps(3) infinite reverse;
+}
+
+@keyframes glitch-catastrophic-rgb {
+  0% {
+    transform: translateX(-14px) skew(-2deg);
+  }
+  20% {
+    transform: translateX(12px) skew(3deg);
+  }
+  40% {
+    transform: translateX(-10px) skew(-4deg);
+  }
+  60% {
+    transform: translateX(14px) skew(2deg);
+  }
+  80% {
+    transform: translateX(-6px) skew(-3deg);
+  }
+  100% {
+    transform: translateX(8px) skew(1deg);
+  }
+}
+
+@keyframes glitch-catastrophic-slice {
+  0% {
+    transform: skew(0deg) scale(1);
+    clip-path: inset(0 0 0 0);
+  }
+  25% {
+    transform: skew(-4deg) translateX(-6px) scale(1.03);
+    clip-path: inset(15% 0 60% 0);
+  }
+  50% {
+    transform: skew(3deg) translateX(8px) scale(1.02);
+    clip-path: inset(45% 0 25% 0);
+  }
+  75% {
+    transform: skew(-2deg) translateX(-4px) scale(1.03);
+    clip-path: inset(70% 0 5% 0);
+  }
+  100% {
+    transform: skew(0deg) scale(1);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes glitch-flash {
+  0%,
+  100% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes glitch-rgb {
+  0% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  100% {
+    transform: translateX(-2px);
+  }
+}
+
+@keyframes glitch-skew {
+  0% {
+    transform: skew(0deg);
+  }
+  25% {
+    transform: skew(-1deg) translateX(-2px);
+  }
+  75% {
+    transform: skew(1deg) translateX(2px);
+  }
+  100% {
+    transform: skew(0deg);
+  }
+}
+
+@keyframes glitch-flicker {
+  0%,
+  100% {
+    opacity: 0.12;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes glitch-tear {
+  0% {
+    transform: translateX(-8px);
+    clip-path: inset(0 0 0 0);
+  }
+  50% {
+    transform: translateX(8px);
+  }
+  100% {
+    transform: translateX(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-cursor {
+    animation: none;
+  }
+
+  .cyberpunk-glitch[data-glitching="true"] .glitch-layer-red,
+  .cyberpunk-glitch[data-glitching="true"] .glitch-layer-crimson,
+  .cyberpunk-glitch[data-glitching="true"] .glitch-layer-base,
+  .cyberpunk-glitch[data-glitching="true"] .glitch-scanlines,
+  .cyberpunk-glitch[data-glitching="true"] .glitch-noise,
+  .cyberpunk-glitch[data-glitching="true"] .glitch-tear-1,
+  .cyberpunk-glitch[data-glitching="true"] .glitch-tear-2,
+  .cyberpunk-glitch[data-glitching="true"] .glitch-tear-3,
+  .cyberpunk-glitch[data-glitching="true"] .glitch-tear-4 {
+    animation: none !important;
+    opacity: 0 !important;
+    transform: none !important;
+  }
 }
 
 /* Mobile-specific fixes */
