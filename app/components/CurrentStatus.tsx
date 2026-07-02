@@ -8,7 +8,7 @@ import Badge from "./ui/Badge";
 interface StatusRowProps {
   readonly icon: ReactNode;
   readonly primary: ReactNode;
-  readonly secondary: ReactNode;
+  readonly secondary?: ReactNode;
 }
 
 function StatusRow({ icon, primary, secondary }: StatusRowProps) {
@@ -21,9 +21,11 @@ function StatusRow({ icon, primary, secondary }: StatusRowProps) {
         <div className="text-white font-semibold text-sm sm:text-base break-words">
           {primary}
         </div>
-        <div className="text-zinc-400 text-sm break-words font-body">
-          {secondary}
-        </div>
+        {secondary ? (
+          <div className="text-zinc-400 text-sm break-words font-body">
+            {secondary}
+          </div>
+        ) : null}
       </div>
     </div>
   );
@@ -36,10 +38,9 @@ export default function CurrentStatus() {
         icon={<BriefcaseIcon className="h-5 w-5 text-red-500" />}
         primary={
           <Badge variant="accent">
-            Lead Fullstack AI Engineer
+            Actively Open to New Software Engineering Opportunities
           </Badge>
         }
-        secondary="@ Saakuru Labs & SiloTech.xyz"
       />
       <StatusRow
         icon={<AcademicCapIcon className="h-5 w-5 text-red-500" />}

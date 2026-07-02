@@ -6,8 +6,23 @@ import { useMediaQuery, usePrefersReducedMotion } from "../hooks/useMediaQuery";
 export const BIO_TEXT =
   "I'm an enthusiastic, highly motivated, adaptive, eager to learn, and grow professionally person. I specialize in building distributed backend systems and fullstack products, and AI-powered applications with modern technologies and delivering seamless user experiences.";
 
-const STATUS_LINE =
-  "building distributed backend systems and fullstack products, and AI-powered applications";
+export const EXPERTISE_PILLARS = [
+  "Backend Engineering",
+  "Distributed Systems",
+  "Fullstack Development",
+  "AI Applications",
+  "System Design",
+  "Cloud & DevOps",
+] as const;
+
+export const HOBBIES = [
+  "Building software & AI products",
+  "Learning something new every day",
+  "Pushing my limits",
+  "Meeting new and ambitious people",
+  "Exploring new places & experiences",
+  "Gym • Golf • Padel • Tennis",
+] as const;
 
 function measureCharWidth(font: string, fontSize: number): number {
   if (typeof document === "undefined") {
@@ -105,8 +120,10 @@ function buildSteps(wrapLength: number, compactPrompt: boolean): TerminalStep[] 
     ...buildOkOutput("Gibran Fasha Ghazanfar", wrapLength),
     ...asLines("prompt", prompt("cat about.txt", compactPrompt), wrapLength),
     ...bioLines.map((line) => ({ kind: "output" as const, text: line })),
-    ...asLines("prompt", prompt("echo $STATUS", compactPrompt), wrapLength),
-    ...buildOkOutput(STATUS_LINE, wrapLength),
+    ...asLines("prompt", prompt("skills --list", compactPrompt), wrapLength),
+    ...EXPERTISE_PILLARS.flatMap((item) => buildOkOutput(item, wrapLength)),
+    ...asLines("prompt", prompt("hobbies --list", compactPrompt), wrapLength),
+    ...HOBBIES.flatMap((item) => buildOkOutput(item, wrapLength)),
   ];
 }
 

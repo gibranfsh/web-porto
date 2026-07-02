@@ -33,7 +33,7 @@ const HeroSection = () => {
 
   const textOpacity = useTransform(
     scrollYProgress,
-    [0, 0.6],
+    [0.82, 1],
     [1, reducedMotion ? 1 : 0]
   );
 
@@ -86,16 +86,16 @@ const HeroSection = () => {
           initial={reducedMotion ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          style={
-            reducedMotion || !applyTextParallax
-              ? undefined
-              : {
-                  opacity: textOpacity,
-                }
-          }
         >
           <div className="w-full max-w-2xl mx-auto sm:mx-0 sm:max-w-none flex flex-col gap-3 sm:gap-6">
-            <div className="flex flex-col items-center sm:items-start text-center sm:text-left w-full gap-2 sm:gap-4 lg:gap-5">
+            <motion.div
+              className="flex flex-col items-center sm:items-start text-center sm:text-left w-full gap-2 sm:gap-4 lg:gap-5"
+              style={
+                reducedMotion || !applyTextParallax
+                  ? undefined
+                  : { opacity: textOpacity }
+              }
+            >
               <Badge variant="brand">{"// Code Wizard & Problem Solver"}</Badge>
 
               <h1 className="font-heading font-extrabold text-white text-3xl sm:text-5xl lg:text-6xl leading-tight">
@@ -132,7 +132,7 @@ const HeroSection = () => {
               <div className="lg:hidden flex justify-center w-full -mt-2 mb-1 sm:mt-5 sm:mb-10">
                 <HeroSamurai variant="mobile" isGlitching={isGlitching} />
               </div>
-            </div>
+            </motion.div>
 
             <div className="w-full text-left flex flex-col gap-5 sm:gap-6">
             <TerminalIntro />
