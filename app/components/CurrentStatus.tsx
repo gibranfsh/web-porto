@@ -3,6 +3,7 @@ import {
   BriefcaseIcon,
 } from "@heroicons/react/24/solid";
 import type { ReactNode } from "react";
+import Badge from "./ui/Badge";
 
 interface StatusRowProps {
   readonly icon: ReactNode;
@@ -34,9 +35,9 @@ export default function CurrentStatus() {
       <StatusRow
         icon={<BriefcaseIcon className="h-5 w-5 text-red-500" />}
         primary={
-          <span className="inline-block px-2 py-0.5 rounded bg-gradient-to-r from-red-900 to-red-800 shadow-glow-red motion-safe:lg:animate-pulse">
+          <Badge variant="accent">
             Lead Fullstack AI Engineer
-          </span>
+          </Badge>
         }
         secondary="@ Saakuru Labs & SiloTech.xyz"
       />

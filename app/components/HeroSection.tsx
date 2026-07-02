@@ -9,6 +9,8 @@ import { useRef } from "react";
 import TerminalIntro from "./TerminalIntro";
 import CurrentStatus from "./CurrentStatus";
 import HeroSamurai from "./HeroSamurai";
+import Button from "./ui/Button";
+import Badge from "./ui/Badge";
 import { useMediaQuery, usePrefersReducedMotion } from "../hooks/useMediaQuery";
 import { useGlitchBurst } from "../hooks/useGlitchBurst";
 
@@ -98,9 +100,7 @@ const HeroSection = () => {
         >
           <div className="w-full max-w-2xl mx-auto sm:mx-0 sm:max-w-none flex flex-col gap-3 sm:gap-6">
             <div className="flex flex-col items-center sm:items-start text-center sm:text-left w-full gap-2 sm:gap-0">
-              <div className="bg-gradient-to-r from-red-600 to-red-400 text-white px-4 py-1.5 sm:px-4 rounded-full text-sm sm:text-base font-medium font-body">
-                Code Wizard & Problem Solver
-              </div>
+              <Badge variant="brand">{"// Code Wizard & Problem Solver"}</Badge>
 
               <h1 className="font-heading font-extrabold text-white text-3xl sm:text-5xl lg:text-6xl leading-tight mt-1 sm:mt-0">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">
@@ -148,9 +148,9 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-4">
-              <button
-                type="button"
-                className="px-6 py-3 min-h-[44px] w-full sm:w-fit rounded-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-medium flex items-center justify-center gap-2 transition-all duration-300 shadow-lg hover:shadow-red-600/40 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50"
+              <Button
+                variant="primary"
+                className="w-full sm:w-fit"
                 onClick={() =>
                   window.open(
                     "https://drive.google.com/file/d/19puE_KSbGYpGbYUjkYDnuvzBW5du9bkM/view?usp=sharing",
@@ -159,16 +159,16 @@ const HeroSection = () => {
                 }
               >
                 View Resume
-              </button>
+              </Button>
 
-              <button
-                type="button"
-                className="px-6 py-3 min-h-[44px] w-full sm:w-fit rounded-full border border-white/30 hover:border-white/60 text-white font-medium flex items-center justify-center gap-2 transition-all duration-300 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50"
+              <Button
+                variant="secondary"
+                className="w-full sm:w-fit group"
                 onClick={() => scrollToSection("projects")}
               >
                 View Projects
                 <ArrowDownIcon className="h-4 w-4 motion-safe:group-hover:translate-y-1 transition-transform" />
-              </button>
+              </Button>
             </div>
 
             <div className="flex items-center justify-start gap-5">

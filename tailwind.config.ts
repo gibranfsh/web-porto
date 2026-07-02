@@ -17,7 +17,10 @@ const config: Config = {
         accent: {
           DEFAULT: '#DC2626',
           hover: '#B91C1C',
-          muted: 'rgba(220,38,38,0.15)',
+          bright: '#EF4444',
+          muted: 'rgba(220,38,38,0.18)',
+          border: 'rgba(220,38,38,0.55)',
+          'border-subtle': 'rgba(220,38,38,0.35)',
         },
         border: {
           DEFAULT: 'rgba(63,63,70,0.6)',

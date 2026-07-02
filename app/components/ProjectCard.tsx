@@ -5,6 +5,8 @@ import {
   ArrowTopRightOnSquareIcon,
   FolderIcon,
 } from "@heroicons/react/24/outline";
+import Button from "./ui/Button";
+import Badge from "./ui/Badge";
 
 export interface Project {
   name: string;
@@ -72,15 +74,17 @@ function TechTags({ techStacks }: { techStacks: string[] }) {
 function ProjectCardActions({ project }: { project: Project }) {
   if (project.status === "live") {
     return (
-      <a
+      <Button
         href={project.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-2.5 px-5 rounded-xl transition-all duration-300 text-sm font-semibold w-full shadow-lg hover:shadow-glow-red cursor-pointer"
+        variant="primary"
+        size="sm"
+        className="w-full font-semibold"
       >
         <span>View Live Demo</span>
         <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-      </a>
+      </Button>
     );
   }
 
@@ -88,24 +92,22 @@ function ProjectCardActions({ project }: { project: Project }) {
     return (
       <div className="space-y-2">
         {project.githubUrl ? (
-          <a
+          <Button
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-zinc-700 hover:bg-zinc-600 text-white py-2.5 px-5 rounded-xl transition-colors duration-300 text-sm font-semibold w-full cursor-pointer"
+            variant="secondary"
+            size="sm"
+            className="w-full font-semibold"
           >
             <span>View Source Code</span>
             <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-          </a>
+          </Button>
         ) : (
-          <button
-            type="button"
-            disabled
-            className="inline-flex items-center justify-center gap-2 bg-zinc-600 text-zinc-300 py-2.5 px-5 rounded-xl text-sm font-semibold w-full cursor-not-allowed"
-          >
+          <Button variant="muted" size="sm" className="w-full font-semibold" disabled>
             <span>Demo Archived</span>
             <FolderIcon className="h-4 w-4" />
-          </button>
+          </Button>
         )}
         <p className="text-zinc-500 text-xs text-center">
           Deployment temporarily down
@@ -115,14 +117,10 @@ function ProjectCardActions({ project }: { project: Project }) {
   }
 
   return (
-    <button
-      type="button"
-      disabled
-      className="inline-flex items-center justify-center gap-2 bg-zinc-700 text-zinc-400 py-2.5 px-5 rounded-xl text-sm font-semibold w-full cursor-not-allowed"
-    >
+    <Button variant="muted" size="sm" className="w-full font-semibold" disabled>
       <span>Private Project</span>
       <FolderIcon className="h-4 w-4" />
-    </button>
+    </Button>
   );
 }
 
@@ -175,9 +173,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         <div className="absolute top-3 left-3 z-20">
-          <span className="font-mono text-xs uppercase tracking-wider bg-gradient-to-r from-red-600 to-red-700 text-white px-2.5 py-1 rounded">
+          <Badge variant="accent">
             {project.type}
-          </span>
+          </Badge>
         </div>
       </div>
 
