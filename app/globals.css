@@ -169,6 +169,17 @@ body {
     @apply text-red-400 border-accent bg-accent-muted shadow-glow-red;
   }
 
+  .tech-icon-cyber {
+    @apply flex items-center justify-center rounded-sm border bg-black/40
+           transition-all duration-200 cursor-default;
+    border-color: rgba(220, 38, 38, 0.35);
+  }
+
+  .tech-icon-cyber:hover,
+  .tech-icon-cyber:focus-within {
+    @apply border-accent bg-accent-muted shadow-glow-red;
+  }
+
   .badge-cyber-brand {
     @apply font-mono text-xs sm:text-sm text-white border bg-black/95 px-3 py-1.5 sm:px-4 rounded-sm;
     border-color: rgba(220, 38, 38, 0.55);
