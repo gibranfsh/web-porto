@@ -1,104 +1,91 @@
 "use client";
-import React, { useState } from "react";
-import { TrophyIcon, CalendarIcon } from "@heroicons/react/24/outline";
+
+import { useMemo, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import FilterButton, { FilterButtonGroup } from "./ui/FilterButton";
-
-interface Award {
-  title: string;
-  date: string;
-  description: string;
-  type: "national" | "international" | "university";
-}
-
-const awards: Award[] = [
-  {
-    title: "Honorable Mention at Alibaba Cloud GenAI Hackathon 2025 Indonesia",
-    date: "May 2025",
-    description: `• Participated in the Alibaba Cloud GenAI Hackathon 2025 Indonesia, a 24-hour hackathon open-to-public national-scale competition with ~2000 participants, organized by Alibaba Cloud in collaboration with GoTo Group. My team of four secured Honorable Mention (Top 4) out of hundreds of submitted projects.\n
-• Developed GoShield, an AI-powered safety intelligence system for transport rides, focused on a passenger-centered care approach to detect and respond to threats in real time using cloud-based LLM infrastructure.\n
-• Utilized ~99% Alibaba Cloud tech stack, including Qwen Plus (Tongyi Qianwen) for Risk Assessment Agent and Summarizer Agent, STT (Intelligent Speech Interaction), PAI-EAS, PAI-DSW, OSS, ApsaraDB RDS (PostgreSQL), and AnalyticDB.\n
-• Built with modern tech: FastAPI + Python + SSE + LangGraph (backend), and Next.js + Capacitor + TailwindCSS + TypeScript (frontend), deployed using Alibaba ECS.\n
-• Contributed as a brainstormer, fullstack engineer, and cloud system integrator.`,
-    type: "national",
-  },
-  {
-    title: "2nd Place Winner at Garuda Hacks 5.0 Hackathon 2024",
-    date: "July 2024",
-    description: `• Participated in Garuda Hacks 5.0, a 36-hour international hackathon, where my team of four secured 2nd Place out of 105 teams (364 participants) in the "Strongest Together" path. We also received The Wolfram Award (awarded to the top 5 hackathon submissions from all tracks). Participants came from various countries, including the USA, Canada, India, Singapore, United Kingdom, and Indonesia.\n
-• Our innovation, IRIS, is an advanced IoT-based mobile application designed to enhance security and user convenience using AI solutions. IRIS focuses on preventing and responding to domestic violence and sexual assault by offering a comprehensive safety and evidence collection approach.\n
-• Served as Hustler, UI/UX Designer, and Fullstack Engineer, contributing to IRIS's design and development.`,
-    type: "international",
-  },
-  {
-    title: "1st Winner ITB Online Hackathon Pra-Gemastik XVII: Software Engineering Competition",
-    date: "June 2024",
-    description: `• Led a team of three to win first place in the ITB Pra-Gemastik XVII Software Engineering competition, demonstrating strong technical leadership and collaborative skills.\n
-• Developed a comprehensive software solution that addressed real-world challenges while adhering to competition requirements for innovation, usability, and technical implementation.\n
-• Showcased expertise in software architecture, coding practices, and problem-solving under time constraints.`,
-    type: "university",
-  },
-  {
-    title: "Top 5 SLASHCOM x HACKATHON Competition 2024",
-    date: "May 2024",
-    description: "• Successfully qualified as one of the Top 5 teams out of 20 participating teams, bringing new innovations and implementations using IT knowledge.\n• Demonstrated problem-solving skills, technical expertise, and collaborative teamwork throughout the competitive hackathon environment.",
-    type: "national",
-  },
-  {
-    title:
-      "Top 5 Web Development Competition Informatics Festival 2023 by Padjajaran University",
-    date: "October 2023",
-    description: `• Received recognition in a Hackathon focused on real-world economic issues, demonstrating adeptness in addressing economic challenges and fostering entrepreneurship by developing a website platform called "Danain", connecting startups with investors.\n• As a Backend Engineer, I played a pivotal role in architecting and developing the backend infrastructure, ensuring robust functionality and seamless integration with frontend components. This involved designing database schemas, implementing RESTful API endpoints, and optimizing server-side processes for optimal performance and scalability.`,
-    type: "national",
-  },
-  {
-    title:
-      "Best Idea SLASHCOM x HACKATHON Competition 2023 by UPNVJ",
-    date: "June 2023",
-    description: `• Propose a startup that supports SDGs 4 and 8, focusing on the quality of education and economic growth, by addressing the challenges faced by students in direct learning through real projects\n
-• As a full stack engineer, I spearheaded the development of both backend and some of the frontend components for our proposed startup project, ensuring robust communication between client and server interfaces.\nIssued by Universitas Pembangunan Nasional "Veteran" Jakarta (UPNVJ).`,
-    type: "national",
-  },
-];
-
-const filters = [
-  { id: "all", label: "All" },
-  { id: "national", label: "National" },
-  { id: "international", label: "International" },
-  { id: "university", label: "University" },
-] as const;
-
-type FilterType = (typeof filters)[number]["id"];
+import AwardCard from "./awards/AwardCard";
+import {
+  awardFilters,
+  filterAwards,
+  type AwardFilter,
+} from "../data/awards";
 
 const AwardsSection = () => {
-  const [filter, setFilter] = useState<FilterType>("all");
+  const sectionRef = useRef<HTMLElement>(null);
+  const [filter, setFilter] = useState<AwardFilter>("all");
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(
+    () => new Set(["alibaba-genai-2025"])
+  );
 
-  const filteredAwards = filter === "all" 
-    ? awards 
-    : awards.filter(award => award.type === filter);
+  const filteredAwards = useMemo(() => filterAwards(filter), [filter]);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgY1 = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const bgY2 = useTransform(scrollYProgress, [0, 1], [40, -120]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0.4, 0.4, 0]);
+
+  const toggleExpanded = (id: string) => {
+    setExpandedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
 
   return (
-    <section className="mt-24 px-4 sm:px-6 lg:px-8 overflow-hidden scroll-mt-[var(--nav-height)]" id="awards">
+    <section
+      ref={sectionRef}
+      className="mt-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden scroll-mt-[var(--nav-height)]"
+      id="awards"
+    >
+      <motion.div
+        className="absolute top-10 left-10 w-48 h-48 bg-gradient-to-br from-red-600/5 to-transparent rounded-full blur-3xl pointer-events-none motion-safe:block hidden"
+        style={{ y: bgY1, opacity: bgOpacity }}
+        aria-hidden
+      />
+      <motion.div
+        className="absolute bottom-20 right-10 w-72 h-72 bg-gradient-to-tl from-red-500/5 to-transparent rounded-full blur-3xl pointer-events-none motion-safe:block hidden"
+        style={{ y: bgY2, opacity: bgOpacity }}
+        aria-hidden
+      />
+
       <div
-        className="text-center mb-16 relative overflow-hidden"
+        className="mb-16 relative overflow-hidden"
         data-aos="fade-up"
         data-aos-duration="600"
       >
-        <div className="absolute top-1/2 left-0 right-0 transform -translate-y-1/2 overflow-hidden">
-          <div className="flex justify-center">
-            <div className="text-6xl sm:text-8xl font-bold text-gray-800/10 max-w-full">AWARDS</div>
-          </div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-20" />
         </div>
-        <div className="relative z-10">
-          <span className="inline-block px-4 py-1 bg-red-600/20 rounded-full text-red-500 text-sm font-medium mb-4">Recognition</span>
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-2 whitespace-normal">
-            My <span className="text-red-600">Achievements</span>
-          </h2>
-          <p className="text-gray-400 max-w-md mx-auto">Accolades and honors received throughout my academic and professional journey</p>
-        </div>
+        <h2 className="text-center relative z-10">
+          <span className="px-6 inline-flex flex-col items-center">
+            <span className="text-sm uppercase tracking-widest text-zinc-400 font-medium mb-2">
+              Recognition
+            </span>
+            <span className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white relative whitespace-normal">
+              My{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">
+                Achievements
+              </span>
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-red-600 to-red-400 rounded-full" />
+            </span>
+            <span className="text-gray-400 mt-6 text-base sm:text-lg max-w-md leading-relaxed">
+              Accolades and honors received throughout my academic and professional journey
+            </span>
+          </span>
+        </h2>
       </div>
-      
-      <FilterButtonGroup className="mb-8">
-        {filters.map(({ id, label }) => (
+
+      <FilterButtonGroup className="mb-10">
+        {awardFilters.map(({ id, label }) => (
           <FilterButton
             key={id}
             selected={filter === id}
@@ -108,47 +95,18 @@ const AwardsSection = () => {
           </FilterButton>
         ))}
       </FilterButtonGroup>
-      
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-stretch">
         {filteredAwards.map((award) => (
-          <AwardCard key={award.title} award={award} />
+          <AwardCard
+            key={award.id}
+            award={award}
+            expanded={expandedIds.has(award.id)}
+            onToggle={() => toggleExpanded(award.id)}
+          />
         ))}
       </div>
     </section>
-  );
-};
-
-const AwardCard = ({ award }: { award: Award }) => {
-  return (
-    <div
-      className="bg-gray-900 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-red-600/20 hover:-translate-y-1 border border-gray-800 hover:border-red-600/40"
-    >
-      <div className="p-1 bg-gradient-to-r from-red-600 to-red-800">
-        <div className="bg-gray-900 px-3 py-1">
-          <span className="text-xs font-medium uppercase tracking-wider text-red-500">
-            {award.type}
-          </span>
-        </div>
-      </div>
-      
-      <div className="p-6">
-        <div className="flex items-start mb-4">
-          <TrophyIcon className="h-6 w-6 text-red-500 flex-shrink-0 mr-3 mt-1" />
-          <h3 className="text-xl font-bold text-white leading-tight">{award.title}</h3>
-        </div>
-        
-        <div className="flex items-center text-gray-400 mb-4">
-          <CalendarIcon className="h-4 w-4 mr-2" />
-          <span className="text-sm">{award.date}</span>
-        </div>
-        
-        <div className="text-gray-300 whitespace-pre-line">
-          {award.description.split('\n').map((item, i) => (
-            <p key={i} className="mb-2">{item}</p>
-          ))}
-        </div>
-      </div>
-    </div>
   );
 };
 
