@@ -1,24 +1,7 @@
 "use client";
 import React, { useRef } from "react";
-import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { 
-  ArrowTopRightOnSquareIcon, 
-  FolderIcon
-} from "@heroicons/react/24/outline";
-
-interface Project {
-  name: string;
-  description: string;
-  imageUrl: string;
-  techStacks: string[];
-  url: string;
-  featured?: boolean;
-  status?: 'live' | 'archived' | 'private';
-  type: 'Full Stack' | 'Frontend' | 'Backend' | 'Mobile' | 'Data Science' | 'DevOps' | 'CMS';
-  githubUrl?: string;
-  caseStudyUrl?: string;
-}
+import ProjectCard, { type Project } from "./ProjectCard";
 
 const projects: Project[] = [
   {
@@ -330,9 +313,9 @@ const ProjectSection = () => {
         </div>
         
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-          {filteredProjects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 items-stretch">
+          {filteredProjects.map((project) => (
+            <ProjectCard key={project.name} project={project} />
           ))}
         </div>
         
@@ -346,165 +329,6 @@ const ProjectSection = () => {
         </div>
       </div>
     </section>
-  );
-};
-
-const ProjectCard = ({
-  project,
-  index,
-}: {
-  project: Project;
-  index: number;
-}) => {
-  return (
-    <div
-      className="group bg-gradient-to-br from-gray-900/95 via-gray-900 to-gray-800 rounded-2xl shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-600/10 border border-gray-800/60 hover:border-red-600/40"
-      data-aos="fade-up"
-      data-aos-duration="1000"
-      data-aos-delay={(index % 3 + 1) * 100}
-    >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 30% 40%, rgba(239, 68, 68, 0.1) 0%, transparent 50%)`
-        }}></div>
-      </div>
-      
-      {/* Image Container */}
-      <div className="relative h-56 overflow-hidden rounded-t-2xl">
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60 z-10"></div>
-        <Image
-          src={project.imageUrl}
-          alt={project.name}
-          fill
-          className="object-cover object-top group-hover:object-bottom group-hover:scale-110"
-          style={{ 
-            transition: "all 1.5s cubic-bezier(0.4, 0.0, 0.2, 1)",
-            backfaceVisibility: "hidden",
-            transform: "translateZ(0)"
-          }}
-          loading="lazy"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          quality={80}
-        />
-        {/* Project Type Badge — solid bg instead of backdrop-blur */}
-        <div className="absolute top-4 left-4 z-20">
-          <div className="bg-red-600 rounded-lg px-3 py-1">
-            <span className="text-white text-xs font-semibold">
-              {project.type}
-            </span>
-          </div>
-        </div>
-      </div>
-      
-      {/* Content Container */}
-      <div className="relative p-6 space-y-4">
-        {/* Title */}
-        <div className="flex items-start space-x-3">
-          <FolderIcon className="h-6 w-6 text-red-500 mt-0.5 flex-shrink-0" />
-          <h3 className="text-xl font-bold text-white group-hover:text-red-400 transition-colors duration-300 leading-tight">
-            {project.name}
-          </h3>
-        </div>
-        
-        {/* Description */}
-        <div className="bg-gray-800/40 rounded-lg p-4 border border-gray-700/30">
-          <p className="text-gray-300 text-sm leading-relaxed">
-            {project.description}
-          </p>
-        </div>
-        
-        {/* Tech Stack */}
-        <div className="space-y-3">
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-            <span className="text-gray-400 text-xs uppercase tracking-wide font-medium">
-              Technologies Used
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-1.5 relative">
-            {project.techStacks.slice(0, 8).map((tech, i) => (
-              <span
-                key={i}
-                className="bg-gray-800/60 hover:bg-gray-700/60 text-gray-300 px-2.5 py-1 rounded-lg text-xs font-medium transition-colors duration-200 border border-gray-700/50"
-              >
-                {tech}
-              </span>
-            ))}
-            {project.techStacks.length > 8 && (
-              <div className="relative group/tooltip">
-                <span className="bg-red-900/40 text-red-300 px-2.5 py-1 rounded-lg text-xs font-medium border border-red-700/50 cursor-help">
-                  +{project.techStacks.length - 8} more
-                </span>
-                {/* Tooltip */}
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 opacity-0 group-hover/tooltip:opacity-100 transition-opacity duration-300 pointer-events-none z-50">
-                  <div className="bg-gray-900 border border-gray-700 rounded-lg p-3 shadow-xl min-w-max">
-                    <div className="flex flex-wrap gap-1.5 max-w-xs">
-                      {project.techStacks.slice(8).map((tech, i) => (
-                        <span
-                          key={i}
-                          className="bg-gray-800 text-gray-300 px-2 py-1 rounded text-xs"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                    {/* Arrow */}
-                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-gray-700"></div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-        
-        {/* Action Button — CSS hover effect instead of useGlitch */}
-        <div className="pt-2">
-          {project.status === 'live' ? (
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-2.5 px-5 rounded-xl transition-all duration-300 text-sm font-semibold w-full shadow-lg hover:shadow-red-500/20 transform hover:-translate-y-0.5 hover:scale-[1.02] active:scale-95"
-            >
-              <span>View Live Demo</span>
-              <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-            </a>
-          ) : project.status === 'archived' ? (
-            <div className="space-y-2">
-              {project.githubUrl ? (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white py-2.5 px-5 rounded-xl transition-all duration-300 text-sm font-semibold w-full hover:scale-[1.02] active:scale-95"
-                >
-                  <span>View Source Code</span>
-                  <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-                </a>
-              ) : (
-                <button
-                  disabled
-                  className="inline-flex items-center justify-center space-x-2 bg-gray-600 text-gray-300 py-2.5 px-5 rounded-xl text-sm font-semibold w-full cursor-not-allowed"
-                >
-                  <span>Demo Archived</span>
-                  <FolderIcon className="h-4 w-4" />
-                </button>
-              )}
-              <p className="text-gray-500 text-xs text-center">Deployment temporarily down</p>
-            </div>
-          ) : (
-            <button
-              disabled
-              className="inline-flex items-center justify-center space-x-2 bg-gray-700 text-gray-400 py-2.5 px-5 rounded-xl text-sm font-semibold w-full cursor-not-allowed"
-            >
-              <span>Private Project</span>
-              <FolderIcon className="h-4 w-4" />
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
   );
 };
 
