@@ -12,14 +12,26 @@ import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+let aosInitialized = false;
+
 const Home = () => {
   useEffect(() => {
-    AOS.init({
-      easing: "ease-out-cubic",
-      once: true,
-      offset: 50,
-      delay: 50,
-    });
+    if (!aosInitialized) {
+      AOS.init({
+        easing: "ease-out-cubic",
+        once: true,
+        offset: 50,
+        duration: 500,
+        throttleDelay: 99,
+        debounceDelay: 50,
+      });
+      aosInitialized = true;
+    } else {
+      AOS.refresh();
+    }
+
+    const refreshTimer = window.setTimeout(() => AOS.refresh(), 150);
+    return () => window.clearTimeout(refreshTimer);
   }, []);
 
   return (

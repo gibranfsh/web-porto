@@ -78,7 +78,11 @@ const AwardsSection = () => {
 
   return (
     <section className="mt-24 px-4 sm:px-6 lg:px-8 overflow-hidden scroll-mt-[var(--nav-height)]" id="awards">
-      <div className="text-center mb-16 relative overflow-hidden" data-aos="fade-up">
+      <div
+        className="text-center mb-16 relative overflow-hidden"
+        data-aos="fade-up"
+        data-aos-duration="600"
+      >
         <div className="absolute top-1/2 left-0 right-0 transform -translate-y-1/2 overflow-hidden">
           <div className="flex justify-center">
             <div className="text-6xl sm:text-8xl font-bold text-gray-800/10 max-w-full">AWARDS</div>
@@ -93,7 +97,7 @@ const AwardsSection = () => {
         </div>
       </div>
       
-      <FilterButtonGroup className="mb-8" data-aos="fade-up">
+      <FilterButtonGroup className="mb-8">
         {filters.map(({ id, label }) => (
           <FilterButton
             key={id}
@@ -106,21 +110,18 @@ const AwardsSection = () => {
       </FilterButtonGroup>
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {filteredAwards.map((award, index) => (
-          <AwardCard key={index} award={award} index={index} />
+        {filteredAwards.map((award) => (
+          <AwardCard key={award.title} award={award} />
         ))}
       </div>
     </section>
   );
 };
 
-const AwardCard = ({ award, index }: { award: Award; index: number }) => {
+const AwardCard = ({ award }: { award: Award }) => {
   return (
     <div
       className="bg-gray-900 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-red-600/20 hover:-translate-y-1 border border-gray-800 hover:border-red-600/40"
-      data-aos="fade-up"
-      data-aos-duration="800"
-      data-aos-delay={(index + 1) * 100}
     >
       <div className="p-1 bg-gradient-to-r from-red-600 to-red-800">
         <div className="bg-gray-900 px-3 py-1">

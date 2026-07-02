@@ -252,7 +252,11 @@ const TechStackSection = () => {
       className="mt-24 px-4 sm:px-6 lg:px-8 overflow-x-hidden overflow-y-visible scroll-mt-[var(--nav-height)]"
       id="tech_stacks"
     >
-      <div className="mb-16 relative overflow-hidden" data-aos="fade-up">
+      <div
+        className="mb-16 relative overflow-hidden"
+        data-aos="fade-up"
+        data-aos-duration="600"
+      >
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-20"></div>
         </div>
@@ -273,7 +277,7 @@ const TechStackSection = () => {
         </h2>
       </div>
 
-      <div className="mb-8 overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+      <div className="mb-8 overflow-hidden">
         <FilterButtonGroup className="mb-2">
           {categories.map((category) => (
             <FilterButton
@@ -289,21 +293,14 @@ const TechStackSection = () => {
 
       <div
         className="overflow-x-hidden overflow-y-visible"
-        data-aos="fade-up"
-        data-aos-duration="1000"
-        data-aos-delay="200"
       >
-        {Object.entries(groupedTechStacks).map(([groupName, techs], groupIndex) => (
+        {Object.entries(groupedTechStacks).map(([groupName, techs]) => (
           <div
             key={groupName}
             className="mb-16 overflow-x-hidden overflow-y-visible"
           >
             <div className="mb-8">
-              <div
-                className="flex items-center mb-2"
-                data-aos="fade-up"
-                data-aos-delay={groupIndex * 100}
-              >
+              <div className="flex items-center mb-2">
                 <div className="h-1 w-6 bg-red-600 rounded mr-3"></div>
                 <h3 className="text-2xl md:text-3xl font-bold text-white">
                   {groupName}
@@ -312,27 +309,18 @@ const TechStackSection = () => {
               </div>
 
               {categoryDescriptions[groupName] && (
-                <p
-                  className="text-gray-400 ml-9 text-sm md:text-base max-w-3xl"
-                  data-aos="fade-up"
-                  data-aos-delay={groupIndex * 100 + 50}
-                >
+                <p className="text-gray-400 ml-9 text-sm md:text-base max-w-3xl">
                   {categoryDescriptions[groupName]}
                 </p>
               )}
             </div>
 
-            <div
-              className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-3 xl:gap-6 justify-items-center overflow-visible"
-              data-aos="fade-up"
-              data-aos-delay={groupIndex * 100 + 100}
-            >
-              {techs.map((tech, index) => (
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-3 xl:gap-6 justify-items-center overflow-visible">
+              {techs.map((tech) => (
                 <TechIcon
                   key={tech.name}
                   name={tech.name}
                   thesvgSlug={tech.thesvgSlug}
-                  delay={index % 10 * 50}
                 />
               ))}
             </div>
@@ -347,11 +335,9 @@ const TechIcon = memo(
   ({
     name,
     thesvgSlug,
-    delay = 0,
   }: {
     name: string;
     thesvgSlug: string;
-    delay?: number;
   }) => {
     const Icon = techBrandIcons[thesvgSlug];
     const { variant, tileClassName } = getIconRenderOptions(thesvgSlug);
@@ -365,8 +351,6 @@ const TechIcon = memo(
         className="relative group z-0 hover:z-30 focus-within:z-30 overflow-visible w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 outline-none"
         tabIndex={0}
         aria-label={name}
-        data-aos="zoom-in"
-        data-aos-delay={delay}
       >
         <div className="tech-icon-cyber h-full w-full">
           {Icon ? (

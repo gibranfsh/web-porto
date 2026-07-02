@@ -286,7 +286,11 @@ const ProjectSection = () => {
       />
       <div className="max-w-7xl mx-auto">
         {/* Enhanced Header */}
-        <div className="text-center relative mb-20" data-aos="fade-up">
+        <div
+          className="text-center relative mb-20"
+          data-aos="fade-up"
+          data-aos-duration="600"
+        >
           <div className="inline-block">
             <span className="text-sm text-red-400 uppercase tracking-[0.3em] font-semibold block mb-3 opacity-90">
               Portfolio Showcase
@@ -320,7 +324,7 @@ const ProjectSection = () => {
         </div>
         
         {/* Bottom CTA */}
-        <div className="text-center mt-20" data-aos="fade-up" data-aos-delay="200">
+        <div className="text-center mt-20">
           <div className="inline-flex items-center space-x-2 text-gray-400 text-sm">
             <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-red-500/50"></div>
             <span>Additional projects on GitHub • Mostly private repositories due to client confidentiality</span>

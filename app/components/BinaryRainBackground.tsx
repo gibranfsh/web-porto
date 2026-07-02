@@ -195,6 +195,8 @@ export default function BinaryRainBackground() {
   const isBurstingRef = useRef(false);
   const burstIdleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const burstEndTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isScrollingRef = useRef(false);
+  const scrollEndTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reducedMotion = usePrefersReducedMotion();
   const [active, setActive] = useState(false);
 
@@ -219,6 +221,31 @@ export default function BinaryRainBackground() {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (!active || reducedMotion) {
+      return;
+    }
+
+    const onScroll = () => {
+      isScrollingRef.current = true;
+      if (scrollEndTimeoutRef.current) {
+        clearTimeout(scrollEndTimeoutRef.current);
+      }
+      scrollEndTimeoutRef.current = setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 120);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (scrollEndTimeoutRef.current) {
+        clearTimeout(scrollEndTimeoutRef.current);
+      }
+    };
+  }, [active, reducedMotion]);
 
   useEffect(() => {
     if (!active || reducedMotion) {
@@ -305,6 +332,11 @@ export default function BinaryRainBackground() {
 
     const tick = () => {
       if (document.hidden || reducedMotion) {
+        rafRef.current = requestAnimationFrame(tick);
+        return;
+      }
+
+      if (isScrollingRef.current) {
         rafRef.current = requestAnimationFrame(tick);
         return;
       }
