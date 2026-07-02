@@ -183,11 +183,85 @@ body {
       transparent 3px
     );
   }
+
+  .scroll-indicator-wrap {
+    @apply relative flex flex-col items-center;
+  }
+
+  .scroll-indicator-cyber {
+    @apply relative flex flex-col items-center gap-1.5 rounded-sm px-6 py-4 min-h-[52px] min-w-[52px] cursor-pointer font-mono text-xs uppercase tracking-[0.2em] text-white transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/70;
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid rgba(239, 68, 68, 0.85);
+    box-shadow:
+      0 0 28px rgba(220, 38, 38, 0.45),
+      inset 0 0 24px rgba(220, 38, 38, 0.12);
+  }
+
+  .scroll-indicator-cyber::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, rgba(239, 68, 68, 0.95), transparent);
+  }
+
+  .scroll-indicator-label {
+    @apply relative z-10 font-semibold;
+    text-shadow: 0 0 10px rgba(220, 38, 38, 0.65);
+  }
+
+  .scroll-indicator-icon {
+    @apply relative z-10 h-7 w-7 text-red-400;
+    filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.85));
+  }
+
+  .scroll-indicator-cyber:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow:
+      0 0 36px rgba(220, 38, 38, 0.55),
+      inset 0 0 28px rgba(220, 38, 38, 0.18);
+  }
+
+  .scroll-indicator-cyber:hover .scroll-indicator-label {
+    color: rgb(254, 242, 242);
+    text-shadow: 0 0 14px rgba(239, 68, 68, 0.9);
+  }
+
+  .scroll-indicator-cyber:hover .scroll-indicator-icon {
+    @apply text-red-300;
+    filter: drop-shadow(0 0 14px rgba(248, 113, 113, 1));
+  }
+
+  .scroll-indicator-tail {
+    @apply relative z-10 w-0.5 h-8 mt-2;
+    background: linear-gradient(to bottom, rgba(239, 68, 68, 1), rgba(239, 68, 68, 0.15));
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.75);
+  }
+
+  .motion-safe\:animate-cyber-scroll-bounce {
+    animation: cyber-scroll-bounce 2s ease-in-out infinite;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .badge-cyber-dot {
     animation: none;
+  }
+
+  .motion-safe\:animate-cyber-scroll-bounce {
+    animation: none;
+  }
+}
+
+@keyframes cyber-scroll-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
   }
 }
 

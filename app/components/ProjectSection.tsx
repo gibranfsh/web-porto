@@ -266,7 +266,7 @@ const ProjectSection = () => {
   const filteredProjects = projects;
 
   return (
-    <section ref={sectionRef} className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-gray-950/30 to-transparent relative overflow-hidden" id="projects">
+    <section ref={sectionRef} className="pt-12 pb-12 sm:pt-16 sm:pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-gray-950/30 to-transparent relative overflow-hidden" id="projects">
       {/* Parallax Background Elements */}
       <motion.div
         className="absolute top-20 left-10 w-64 h-64 bg-gradient-to-br from-red-600/5 to-transparent rounded-full blur-3xl pointer-events-none"

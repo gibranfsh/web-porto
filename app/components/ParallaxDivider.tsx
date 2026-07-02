@@ -55,7 +55,7 @@ const ParallaxDivider = ({ variant = "geometric", className = "" }: ParallaxDivi
 
   if (variant === "gradient") {
     return (
-      <div ref={ref} className={`relative h-24 overflow-hidden ${className}`}>
+      <div ref={ref} className={`relative h-8 sm:h-10 overflow-hidden ${className}`}>
         <motion.div
           className="absolute inset-0 bg-gradient-to-r from-transparent via-red-600/10 to-transparent"
           style={{ scaleX: scale, opacity }}
@@ -74,7 +74,7 @@ const ParallaxDivider = ({ variant = "geometric", className = "" }: ParallaxDivi
 
   // Default: geometric
   return (
-    <div ref={ref} className={`relative h-40 overflow-hidden ${className}`}>
+    <div ref={ref} className={`relative h-24 sm:h-28 overflow-hidden ${className}`}>
       <motion.div
         className="absolute inset-0 flex items-center justify-center"
         style={{ opacity }}

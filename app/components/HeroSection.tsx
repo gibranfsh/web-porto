@@ -30,11 +30,6 @@ const HeroSection = () => {
 
   const samuraiYDesktop = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const samuraiScale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
-  const samuraiOpacityDesktop = useTransform(
-    scrollYProgress,
-    [0, 0.85, 1],
-    [1, 0.9, 0]
-  );
 
   const textY = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const textOpacity = useTransform(
@@ -93,16 +88,19 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           style={
-            applyTextParallax
-              ? { y: textY, opacity: textOpacity }
-              : undefined
+            reducedMotion
+              ? undefined
+              : {
+                  y: applyTextParallax ? textY : undefined,
+                  opacity: textOpacity,
+                }
           }
         >
           <div className="w-full max-w-2xl mx-auto sm:mx-0 sm:max-w-none flex flex-col gap-3 sm:gap-6">
-            <div className="flex flex-col items-center sm:items-start text-center sm:text-left w-full gap-2 sm:gap-0">
+            <div className="flex flex-col items-center sm:items-start text-center sm:text-left w-full gap-2 sm:gap-4 lg:gap-5">
               <Badge variant="brand">{"// Code Wizard & Problem Solver"}</Badge>
 
-              <h1 className="font-heading font-extrabold text-white text-3xl sm:text-5xl lg:text-6xl leading-tight mt-1 sm:mt-0">
+              <h1 className="font-heading font-extrabold text-white text-3xl sm:text-5xl lg:text-6xl leading-tight">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">
                   Hello, I&apos;m{" "}
                 </span>
@@ -171,10 +169,10 @@ const HeroSection = () => {
               </Button>
             </div>
 
-            <div className="flex items-center justify-start gap-5">
+            <div className="flex items-center justify-center sm:justify-start gap-5 w-full">
               <Link
                 href="https://github.com/gibranfsh"
-                className="text-gray-400 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 rounded"
+                className="text-gray-400 hover:text-red-400 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 rounded"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub Profile"
@@ -183,7 +181,7 @@ const HeroSection = () => {
               </Link>
               <Link
                 href="https://www.linkedin.com/in/gibran-fasha-ghazanfar"
-                className="text-gray-400 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 rounded"
+                className="text-gray-400 hover:text-red-400 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 rounded"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
@@ -192,7 +190,7 @@ const HeroSection = () => {
               </Link>
               <Link
                 href="https://www.instagram.com/gibranfg"
-                className="text-gray-400 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 rounded"
+                className="text-gray-400 hover:text-red-400 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 rounded"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram Profile"
@@ -209,11 +207,15 @@ const HeroSection = () => {
           initial={reducedMotion ? false : { opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          style={{
-            y: reducedMotion ? 0 : samuraiYDesktop,
-            scale: reducedMotion ? 1 : samuraiScale,
-            opacity: reducedMotion ? 1 : samuraiOpacityDesktop,
-          }}
+          style={
+            reducedMotion
+              ? undefined
+              : {
+                  y: samuraiYDesktop,
+                  scale: samuraiScale,
+                  opacity: textOpacity,
+                }
+          }
         >
           <HeroSamurai variant="desktop" isGlitching={isGlitching} />
         </motion.div>

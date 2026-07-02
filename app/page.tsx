@@ -6,7 +6,7 @@ import ExperienceSection from "./components/ExperienceSection";
 import AwardsSection from "./components/AwardSection";
 import ParallaxDivider from "./components/ParallaxDivider";
 import ScrollIndicator from "./components/ScrollIndicator";
-import { FaArrowDownLong } from "react-icons/fa6";
+import ScrollArrow from "./components/ScrollArrow";
 import { useEffect, useMemo, useState, lazy, Suspense } from "react";
 import dynamic from "next/dynamic";
 import AOS from "aos";
@@ -145,7 +145,7 @@ const Home = () => {
       )}
       <div className="container mx-auto px-0 sm:px-4 py-4 relative">
         <HeroSection />
-        <FaArrowDownLong className="text-white text-4xl mx-auto my-32 animate-bounce w-6 h-6" />
+        <ScrollArrow />
         <TechStackSection />
         <ParallaxDivider variant="geometric" />
         <ProjectSection />

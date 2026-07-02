@@ -104,7 +104,7 @@ const ExperienceSection = () => {
   const bgOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0.4, 0.4, 0]);
 
   return (
-    <section ref={sectionRef} className="mt-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden" id="experiences">
+    <section ref={sectionRef} className="mt-4 sm:mt-6 px-4 sm:px-6 lg:px-8 relative overflow-hidden" id="experiences">
       {/* Parallax Background Elements */}
       <motion.div
         className="absolute top-10 right-10 w-48 h-48 bg-gradient-to-bl from-red-600/5 to-transparent rounded-full blur-3xl pointer-events-none"
