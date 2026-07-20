@@ -1,7 +1,8 @@
 "use client";
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import ProjectCard, { type Project } from "./ProjectCard";
+import ProjectDetailsModal from "./ProjectDetailsModal";
 
 const projects: Project[] = [
   {
@@ -27,6 +28,33 @@ const projects: Project[] = [
     url: "https://mindextension.me",
     status: "live",
     type: "Full Stack",
+  },
+  {
+    name: "PalmVue — Configurable Traceability & ERP SaaS Platform for Agriculture",
+    description: "PalmVue is a traceability platform for palm seed production that replaces paper-based workflows with a centralized digital system. It provides real-time, end-to-end visibility across plantation operations, ensuring operational data is captured, structured, and fully traceable.",
+    imageUrl: "/projects/palmvue.jpeg",
+    techStacks: [
+      "Go",
+      "PostgreSQL",
+      "Next.js",
+      "React Native",
+      "TypeScript",
+      "TailwindCSS",
+      "React Query",
+      "Docker",
+      "AWS",
+    ],
+    url: "https://palmvue-web-revamp-demo.vercel.app",
+    status: "live",
+    type: "Full Stack",
+    date: "Nov 2025 – Feb 2026",
+    highlights: [
+      "Architected a full-stack SaaS platform for palm seed production traceability using Go, Next.js, and React Native, enabling companies to digitize plantation operations and production workflows.",
+      "Designed a schema-driven data model using PostgreSQL JSONB and JSON Schema validation, allowing organizations to dynamically define their own entities, fields, and operational structures without code changes.",
+      "Engineered a configurable workflow engine supporting approval gates, multi-step pipelines, and automated workflow chaining to model complex production and quality-control processes.",
+      "Built a dynamic analytics engine with a parameterized SQL query builder enabling self-service dashboards across custom entities and operational data.",
+      "Implemented offline-first mobile data capture with idempotent sync APIs to support reliable field data collection in low-connectivity plantation environments.",
+    ],
   },
   {
     name: "ICEE 2025 Main Website",
@@ -250,6 +278,7 @@ const projects: Project[] = [
 
 const ProjectSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -319,7 +348,11 @@ const ProjectSection = () => {
         {/* Projects Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 items-stretch">
           {filteredProjects.map((project) => (
-            <ProjectCard key={project.name} project={project} />
+            <ProjectCard
+              key={project.name}
+              project={project}
+              onClick={() => setSelectedProject(project)}
+            />
           ))}
         </div>
         
@@ -332,6 +365,15 @@ const ProjectSection = () => {
           </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectDetailsModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 };

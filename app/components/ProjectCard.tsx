@@ -26,12 +26,15 @@ export interface Project {
     | "CMS";
   githubUrl?: string;
   caseStudyUrl?: string;
+  date?: string;
+  highlights?: string[];
 }
 
 const VISIBLE_TECH_COUNT = 4;
 
 interface ProjectCardProps {
   project: Project;
+  onClick?: () => void;
 }
 
 function TechTags({ techStacks }: { techStacks: string[] }) {
@@ -39,7 +42,7 @@ function TechTags({ techStacks }: { techStacks: string[] }) {
   const overflow = techStacks.slice(VISIBLE_TECH_COUNT);
 
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <div className="flex flex-wrap gap-1.5 relative">
       {visible.map((tech) => (
         <span
           key={tech}
@@ -49,11 +52,11 @@ function TechTags({ techStacks }: { techStacks: string[] }) {
         </span>
       ))}
       {overflow.length > 0 && (
-        <details className="relative group/details">
+        <details className="group/details" onClick={(e) => e.stopPropagation()}>
           <summary className="font-mono text-xs border border-red-700/50 bg-red-900/30 text-red-300 px-2 py-0.5 rounded cursor-pointer list-none [&::-webkit-details-marker]:hidden">
             +{overflow.length} more
           </summary>
-          <div className="absolute top-full left-0 mt-2 z-50 bg-zinc-900 border border-zinc-700 rounded-lg p-3 shadow-elevation-3 min-w-[12rem]">
+          <div className="absolute bottom-full left-0 mb-2 z-50 bg-zinc-900 border border-zinc-700 rounded-lg p-3 shadow-elevation-3 min-w-[12rem]">
             <div className="flex flex-wrap gap-1.5 max-w-xs">
               {overflow.map((tech) => (
                 <span
@@ -81,6 +84,7 @@ function ProjectCardActions({ project }: { project: Project }) {
         variant="primary"
         size="sm"
         className="w-full font-semibold"
+        onClick={(e) => e.stopPropagation()}
       >
         <span>View Live Demo</span>
         <ArrowTopRightOnSquareIcon className="h-4 w-4" />
@@ -90,7 +94,7 @@ function ProjectCardActions({ project }: { project: Project }) {
 
   if (project.status === "archived") {
     return (
-      <div className="space-y-2">
+      <div className="space-y-2" onClick={(e) => e.stopPropagation()}>
         {project.githubUrl ? (
           <Button
             href={project.githubUrl}
@@ -117,16 +121,25 @@ function ProjectCardActions({ project }: { project: Project }) {
   }
 
   return (
-    <Button variant="muted" size="sm" className="w-full font-semibold" disabled>
+    <Button
+      variant="muted"
+      size="sm"
+      className="w-full font-semibold"
+      disabled
+      onClick={(e) => e.stopPropagation()}
+    >
       <span>Private Project</span>
       <FolderIcon className="h-4 w-4" />
     </Button>
   );
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({ project, onClick }: ProjectCardProps) {
   return (
-    <article className="group flex flex-col h-full relative overflow-hidden rounded-card border border-zinc-800/60 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800 shadow-elevation-2 transition-all duration-300 hover:border-red-600/50 hover:shadow-glow-red-strong motion-safe:hover:-translate-y-1 focus-within:ring-1 focus-within:ring-red-500/40 focus-within:shadow-glow-red">
+    <article
+      onClick={onClick}
+      className="group flex flex-col h-full relative overflow-hidden rounded-card border border-zinc-800/60 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800 shadow-elevation-2 transition-all duration-300 hover:border-red-600/50 hover:shadow-glow-red-strong motion-safe:hover:-translate-y-1 focus-within:ring-1 focus-within:ring-red-500/40 focus-within:shadow-glow-red cursor-pointer"
+    >
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
         aria-hidden="true"
@@ -168,7 +181,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none motion-reduce:transition-none">
           <span className="font-mono text-sm text-red-300 tracking-wider uppercase">
-            View Project
+            View Details
           </span>
         </div>
 
