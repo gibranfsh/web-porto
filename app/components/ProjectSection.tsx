@@ -6,6 +6,42 @@ import ProjectDetailsModal from "./ProjectDetailsModal";
 
 const projects: Project[] = [
   {
+    name: "Azuma ERP — Integrated Seed Production ERP",
+    description:
+      "Azuma ERP is an integrated ERP platform for corn/maize seed production that replaces spreadsheet-driven operations with a centralized digital system. Built for PT Agro Zuriat Mandiri, it covers the full seed-industry value chain, from partner-managed field production and buy-out settlement through multi-grade inventory, direct and consignment sales, operational finance, and Indonesian CoreTax reporting.",
+    imageUrl: "/projects/azuma.png",
+    techStacks: [
+      "Go",
+      "GoFiber",
+      "PostgreSQL",
+      "pgx",
+      "JWT",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Docker",
+      "AWS EC2",
+      "AWS S3",
+      "GitHub Actions",
+      "Vercel",
+    ],
+    url: "#",
+    status: "private",
+    type: "Full Stack",
+    highlights: [
+      "Contributed to a full-stack ERP built with Go (Fiber), Next.js, and PostgreSQL, developing features and fixing bugs across 6 business modules and 38+ web routes.",
+      "Built features within a Clean Layered Architecture backend (handlers → services → repositories), working across ~35 domain services.",
+      "Applied Go idioms and design patterns, including interface-driven composition, dependency injection, and repository/service abstractions, for modular, testable code.",
+      "Developed features for the multi-phase production lifecycle (field prep → harvest → shelling → drying → QC → BPSB), including buy-out settlement, COGS breakdown, and inventory/ledger posting.",
+      "Worked on direct and consignment sales workflows, including inventory locking, automated revenue/expense transactions, and sales-performance analytics.",
+      "Worked on operational finance and CoreTax modules, including transaction categorization, income statement, cash flow, and tax reporting workflows.",
+      "Wrote unit and integration tests as part of 43 integration tests (including concurrency scenarios), 130+ backend unit tests, and 49 frontend test suites.",
+      "Debugged and resolved issues across backend, authentication, RBAC, and frontend, as part of ongoing maintenance and feature development.",
+      "Developed UI features using the shared design system, including forms, filters, tables, and document generation for invoices and financial reports.",
+    ],
+  },
+  {
     name: "Mind Extension - AI-Powered Development Workspace",
     description: "A multi-tenant AI-powered workspace combining real-time chat, document collaboration, and agentic automation. Features streaming AI responses, tenant-isolated PostgreSQL backends, multi-provider LLM orchestration, RAG-powered knowledge retrieval, and Stripe billing infrastructure.",
     imageUrl: "/projects/mindextension.png",

@@ -31,6 +31,8 @@ export interface Project {
 }
 
 const VISIBLE_TECH_COUNT = 4;
+const PROJECT_ACTION_BUTTON_CLASS =
+  "w-full min-w-[12rem] max-w-[15rem] font-semibold";
 
 interface ProjectCardProps {
   project: Project;
@@ -42,7 +44,7 @@ function TechTags({ techStacks }: { techStacks: string[] }) {
   const overflow = techStacks.slice(VISIBLE_TECH_COUNT);
 
   return (
-    <div className="flex flex-wrap gap-1.5 relative">
+    <div className="flex flex-wrap justify-start gap-1.5 relative content-start w-full lg:min-h-[3.75rem]">
       {visible.map((tech) => (
         <span
           key={tech}
@@ -52,7 +54,7 @@ function TechTags({ techStacks }: { techStacks: string[] }) {
         </span>
       ))}
       {overflow.length > 0 && (
-        <details className="group/details" onClick={(e) => e.stopPropagation()}>
+        <details className="group/details relative" onClick={(e) => e.stopPropagation()}>
           <summary className="font-mono text-xs border border-red-700/50 bg-red-900/30 text-red-300 px-2 py-0.5 rounded cursor-pointer list-none [&::-webkit-details-marker]:hidden">
             +{overflow.length} more
           </summary>
@@ -83,7 +85,7 @@ function ProjectCardActions({ project }: { project: Project }) {
         rel="noopener noreferrer"
         variant="primary"
         size="sm"
-        className="w-full font-semibold"
+        className={PROJECT_ACTION_BUTTON_CLASS}
         onClick={(e) => e.stopPropagation()}
       >
         <span>View Live Demo</span>
@@ -93,38 +95,42 @@ function ProjectCardActions({ project }: { project: Project }) {
   }
 
   if (project.status === "archived") {
+    if (project.githubUrl) {
+      return (
+        <Button
+          href={project.githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          variant="secondary"
+          size="sm"
+          className={PROJECT_ACTION_BUTTON_CLASS}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <span>View Source Code</span>
+          <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+        </Button>
+      );
+    }
+
     return (
-      <div className="space-y-2" onClick={(e) => e.stopPropagation()}>
-        {project.githubUrl ? (
-          <Button
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="secondary"
-            size="sm"
-            className="w-full font-semibold"
-          >
-            <span>View Source Code</span>
-            <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-          </Button>
-        ) : (
-          <Button variant="muted" size="sm" className="w-full font-semibold" disabled>
-            <span>Demo Archived</span>
-            <FolderIcon className="h-4 w-4" />
-          </Button>
-        )}
-        <p className="text-zinc-500 text-xs text-center">
-          Deployment temporarily down
-        </p>
-      </div>
+      <Button
+        variant="secondary"
+        size="sm"
+        className={PROJECT_ACTION_BUTTON_CLASS}
+        disabled
+        onClick={(e) => e.stopPropagation()}
+      >
+        <span>Demo Archived</span>
+        <FolderIcon className="h-4 w-4" />
+      </Button>
     );
   }
 
   return (
     <Button
-      variant="muted"
+      variant="secondary"
       size="sm"
-      className="w-full font-semibold"
+      className={PROJECT_ACTION_BUTTON_CLASS}
       disabled
       onClick={(e) => e.stopPropagation()}
     >
@@ -192,18 +198,20 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         </div>
       </div>
 
-      <div className="relative flex flex-col flex-1 p-5 space-y-3">
-        <h3 className="font-heading text-lg font-bold text-white group-hover:text-red-400 transition-colors duration-300 leading-tight line-clamp-2">
-          {project.name}
-        </h3>
+      <div className="relative flex flex-col flex-1 p-5">
+        <div className="flex flex-col flex-1 space-y-2 sm:space-y-3">
+          <h3 className="font-heading text-lg font-bold text-white group-hover:text-red-400 transition-colors duration-300 leading-tight line-clamp-2 text-left lg:min-h-[3rem]">
+            {project.name}
+          </h3>
 
-        <p className="font-body text-sm text-zinc-400 leading-relaxed line-clamp-2">
-          {project.description}
-        </p>
+          <p className="font-body text-sm text-zinc-400 leading-relaxed line-clamp-2 text-left lg:min-h-[2.875rem]">
+            {project.description}
+          </p>
 
-        <TechTags techStacks={project.techStacks} />
+          <TechTags techStacks={project.techStacks} />
+        </div>
 
-        <div className="pt-1 mt-auto">
+        <div className="mt-4 pt-4 border-t border-zinc-800/50 flex justify-center">
           <ProjectCardActions project={project} />
         </div>
       </div>
